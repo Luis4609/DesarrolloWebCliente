@@ -23,7 +23,7 @@
       function crearCaja(width, height, color, id, inner) {
         var ele = document.createElement("div"); // crear objeto
         ele.id = id;
-        ele.inner = inner; 
+        ele.inner = inner;
         ele.innerHTML = inner;
         ele.style.cssFloat = "left"; // css posicionamiento
         ele.style.backgroundColor = color;
@@ -36,7 +36,7 @@
       }
       function clickCaja() {
         // alert(this.id); // this es el sender del evento
-        var textNode = document.innerHTML(this.inner);
+        var textNode = (document.innerHTML = "H");
 
         this.appendChild(textNode);
       }
