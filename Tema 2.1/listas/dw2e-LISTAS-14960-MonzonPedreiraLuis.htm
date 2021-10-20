@@ -1,0 +1,70 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" id="print">
+      <div id="ascendente"></div>
+      <div id="descendente"></div>
+    </div>
+    <script>
+      //Array de 10 num random
+      const randomArray = [];
+      function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      for (let i = 0; i < 10; i++) {
+        randomArray[i] = getRndInteger(0, 1000);
+        // document.write("Element " +i+ " contains: " +myArray[i]+ "<br />");
+        //Print array
+        document.write("[ " + randomArray[i] + " ]");
+      }
+      document.write("<br>");
+      //Print con comas
+      var printArray = randomArray.toString();
+      document.write("El array ordenado por comas: " + printArray);
+      document.write("<br>");
+
+      //Orden ascendente
+      randomArray.sort(function (a, b) {
+        return a - b;
+      });
+      document.write("El array con orden ascendente: " + randomArray + "<br>");
+      document.write(
+        "El minimo valor del array es: " + randomArray[0] + "<br>"
+      );
+
+      //Orden descendente
+      randomArray.sort(function (a, b) {
+        return b - a;
+      });
+      document.write("El array con orden descendente: " + randomArray + "<br>");
+      document.write(
+        "El maximo valor del array es: " + randomArray[0] + "<br>"
+      );
+
+      //Calcular la media del array
+      const sum = randomArray.reduce(
+        (previous, current) => (current += previous)
+      );
+      var avg = sum / randomArray.length;
+      document.write("La media aritmetica es: " + avg + "<br>");
+
+      //Calcular la suma
+      var sumaArray = 0;
+      randomArray.forEach(function (numero) {
+        sumaArray += numero;
+      });
+      document.write(
+        "La suma de los valores del array es: " + sumaArray + "<br>"
+      );
+
+      //Filtrar entre 0-100
+      var filtro = randomArray.filter((numero) => numero >= 0 && numero <= 100);
+      document.write("El filtro entre 0-100: " + filtro + "<br>");
+    </script>
+  </body>
+</html>
