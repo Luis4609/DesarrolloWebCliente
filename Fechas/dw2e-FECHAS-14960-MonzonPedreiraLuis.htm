@@ -14,6 +14,7 @@
         var newInput = document.createElement("input");
         newInput.type = "date";
         newInput.id = "fecha";
+        newInput.addEventListener("change", this.value);
         //Crear p para visualizar la fecha
         var newP = document.createElement("p");
         newP.id = "valueInput";
@@ -23,16 +24,26 @@
       }
 
       //Obtener el valor de la fecha por el input
-      const getValueInput = () => {
-        let inputValue = document.getElementById("fecha").value;
-        document.getElementById("valueInput").innerHTML = inputValue;
-      };
+      //   const getValueInput = () => {
+      //     let inputValue = document.getElementById("fecha").value;
+      //     document.getElementById("valueInput").innerHTML = inputValue;
+      //   };
+
+      //EventListener del input fecha
+    
       document.body.onload = crearNodo;
     </script>
     <script>
-      var f = new Date();
+      //Mostrar la fecha actual
+      var fechaActual = new Date();
+      document.write("<h2>Fecha actual</h2>");
       document.write(
-        f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() + "<br>"
+        fechaActual.getDate() +
+          "/" +
+          (fechaActual.getMonth() + 1) +
+          "/" +
+          fechaActual.getFullYear() +
+          "<br>"
       );
     </script>
   </body>
