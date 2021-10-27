@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fechas</title>
+  </head>
+  <body>
+    <script>
+      function crearNodo() {
+        var newDiv = document.createElement("div");
+        newDiv.className = "container";
+        var newInput = document.createElement("input");
+        newInput.type = "date";
+        newInput.id = "fecha";
+        //EventListener del input fecha
+        newInput.addEventListener("change", function () {
+          alert("Se cambio la fecha a: " + this.value);
+        });
+        //Crear p para visualizar la fecha
+        var newP = document.createElement("p");
+        newP.id = "valueInput";
+        document.body.appendChild(newDiv);
+        newDiv.appendChild(newInput);
+        newDiv.appendChild(newP);
+      }
+
+      //Obtener el valor de la fecha por el input
+      //   const getValueInput = () => {
+      //     let inputValue = document.getElementById("fecha").value;
+      //     document.getElementById("valueInput").innerHTML = inputValue;
+      //   };
+
+      document.body.onload = crearNodo;
+    </script>
+    <script>
+      //Mostrar la fecha actual
+      var fechaActual = new Date();
+      document.write("<h2>Fecha actual</h2>");
+      document.write(
+        fechaActual.getDate() +
+          "/" +
+          (fechaActual.getMonth() + 1) +
+          "/" +
+          fechaActual.getFullYear() +
+          "<br>"
+      );
+    </script>
+  </body>
+</html>

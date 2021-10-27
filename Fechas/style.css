@@ -13,3 +13,62 @@ th {
   font-weight: bold;
   background-color: #e6e6e6;
 }
+
+.mifecha {
+  background-color: #999;
+  padding: 3px;
+  width: 110px;
+  text-align: center;
+  font-family: verdana, arial;
+  font-size: 12pt;
+}
+.mifecha .ano {
+  background-color: #339;
+  padding: 2px;
+  font-size: 100%;
+  margin-bottom: 3px;
+  color: #fff;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+.mifecha .dia {
+  background-color: #99f;
+  font-size: 300%;
+  padding: 5px 8px;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+.mifecha .mes {
+  background-color: #339;
+  font-size: 80%;
+  padding: 2px;
+  color: #fff;
+  font-weight: bold;
+}
+.mifecha2 {
+  border: 1px solid #ddd;
+  padding: 3px;
+  text-align: center;
+  font-family: verdana, arial;
+  font-size: 10pt;
+  overflow: hidden;
+  width: 100%;
+}
+.mifecha2 .mesano {
+  float: left;
+  padding: 3px;
+  font-weight: bold;
+}
+.mifecha2 .dia,
+.mifecha2 .diaactual {
+  width: 20px;
+  padding: 3px;
+  margin-left: 3px;
+  background-color: #ddd;
+  float: left;
+}
+.mifecha2 .diaactual {
+  background-color: #999;
+  font-weight: bold;
+}
+

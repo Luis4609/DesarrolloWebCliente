@@ -14,8 +14,8 @@ lenguaje:=[], push, new Date, setDate, getDate, sort(funtion), input type date,
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Fechas</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
@@ -25,9 +25,9 @@ lenguaje:=[], push, new Date, setDate, getDate, sort(funtion), input type date,
       function createCalendar(elem, year, month) {
         let mon = month - 1; // months in JS are 0..11, not 1..12
         let d = new Date(year, mon);
-
+      
         let table =
-          "<table><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>";
+          "<table><tr><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr><tr>";
 
         // spaces for the first row
         // from Monday till the first day of the month
@@ -69,7 +69,7 @@ lenguaje:=[], push, new Date, setDate, getDate, sort(funtion), input type date,
         return day - 1;
       }
 
-      createCalendar(calendar, 2012, 9);
+      createCalendar(calendar, 2012, 10);
     </script>
   </body>
 </html>
