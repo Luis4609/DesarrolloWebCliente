@@ -15,7 +15,9 @@
         newInput.type = "date";
         newInput.id = "fecha";
         //EventListener del input fecha
-        newInput.addEventListener("change", this.value);
+        newInput.addEventListener("change", function () {
+          alert("Se cambio la fecha a: " + this.value);
+        });
         //Crear p para visualizar la fecha
         var newP = document.createElement("p");
         newP.id = "valueInput";
