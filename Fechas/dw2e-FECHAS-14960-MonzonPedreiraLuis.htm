@@ -26,13 +26,17 @@
         newDiv.appendChild(newP);
       }
 
-      //Obtener el valor de la fecha por el input
-      //   const getValueInput = () => {
-      //     let inputValue = document.getElementById("fecha").value;
-      //     document.getElementById("valueInput").innerHTML = inputValue;
-      //   };
-
-      document.body.onload = crearNodo;
+      //Funcion para generar un nodo en HTML
+      function generarNodo() {
+        var elemento = document.createElement("div");
+        document.body.appendChild(elemento);
+        return elemento;
+      }
+      //Funcion para generar un numero aleatorio entre min y max
+      function generarAleatorio(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      window.onload = iniciar;
     </script>
     <script>
       //Mostrar la fecha actual
