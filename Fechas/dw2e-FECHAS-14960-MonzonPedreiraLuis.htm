@@ -1,55 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fechas</title>
-  </head>
-  <body>
-    <script>
-      function crearNodo() {
-        var newDiv = document.createElement("div");
-        newDiv.className = "container";
-        var newInput = document.createElement("input");
-        newInput.type = "date";
-        newInput.id = "fecha";
-        //EventListener del input fecha
-        newInput.addEventListener("change", function () {
-          alert("Se cambio la fecha a: " + this.value);
-        });
-        //Crear p para visualizar la fecha
-        var newP = document.createElement("p");
-        newP.id = "valueInput";
-        document.body.appendChild(newDiv);
-        newDiv.appendChild(newInput);
-        newDiv.appendChild(newP);
-      }
 
-      //Funcion para generar un nodo en HTML
-      function generarNodo() {
-        var elemento = document.createElement("div");
-        document.body.appendChild(elemento);
-        return elemento;
-      }
-      //Funcion para generar un numero aleatorio entre min y max
-      function generarAleatorio(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-      window.onload = iniciar;
-    </script>
-    <script>
-      //Mostrar la fecha actual
-      var fechaActual = new Date();
-      document.write("<h2>Fecha actual</h2>");
-      document.write(
-        fechaActual.getDate() +
-          "/" +
-          (fechaActual.getMonth() + 1) +
-          "/" +
-          fechaActual.getFullYear() +
-          "<br>"
-      );
-    </script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fechas</title>
+</head>
+
+<body>
+  <script>
+    //Funcion para cargar la pagina
+    function iniciar() {
+      generarInput();
+
+    }
+    function generarInput() {
+      var newDiv = document.createElement("div");
+      newDiv.className = "container";
+      var newInput = document.createElement("input");
+      newInput.type = "date";
+      newInput.id = "fecha";
+      //EventListener del input fecha
+      newInput.addEventListener("change", function () {
+        alert("Se cambio la fecha a: " + this.value);
+      });
+      //Crear p para visualizar la fecha
+      var newP = document.createElement("p");
+      newP.id = "valueInput";
+      document.body.appendChild(newDiv);
+      newDiv.appendChild(newInput);
+      newDiv.appendChild(newP);
+    }
+    //Funcion para generar un nodo html
+    function generarNodo(tipo) {
+      var element = document.createElement(tipo);
+      //Styles
+      element.style.height = '50px';
+      element.style.width = '200px';
+      element.style.padding = '5px';
+      element.style.textAlign = 'center';
+      element.style.border = '1px solid lightgrey';
+      element.style.float = 'left';
+      document.body.appendChild(element);
+      return element;
+    }
+    //Generar un salto con un div
+    function crearSalto() {
+      var element = document.createElement('div');
+      element.style.clear = 'left';
+      document.body.appendChild(element);
+    }
+    //Generar un numero random entre un max y min
+    function random(min, max) {
+      return Math.floor(Math.random() * ((max + 1) - min) + min);
+    }
+    window.onload = iniciar;
+  </script>
+</body>
+
 </html>

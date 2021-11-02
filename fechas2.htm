@@ -1,0 +1,196 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>fechas</title>
+
+    <script>
+        var fechas = [];
+        // Funcion para iniciar la pagina
+        function iniciar() {
+            mostrarFechaUsuario();
+            almacenarFechas();
+            ordenarFechas();
+            diferenciarFechas();
+        }
+
+        function mostrarFechaUsuario() {
+            numCajas = 2;
+
+            var apartado = crearNodo('h2', document.body, 'apartado1');
+            apartado.innerHTML = 'Ejemplo de control input type="date"';
+
+            for (let i = 1; i <= numCajas; i++) {
+                var caja = crearNodo('div', document.body, 'caja0' + i);
+                caja.style.width = '100px';
+                caja.style.height = '30px';
+                caja.style.border = '1px solid #CCC';
+                caja.style.display = 'flex';
+                caja.style.float = 'left';
+                caja.style.justifyContent = 'center';
+                caja.style.alignItems = 'center';
+            }
+
+            var caja1 = document.getElementById('caja01');
+            var caja2 = document.getElementById('caja02');
+
+            var fechaUsuario = crearNodoInput('date', caja1, 'date');
+            var textoFecha = crearNodo('p', caja2, 'date-result');
+            textoFecha.innerHTML = 'fecha';
+            fechaUsuario.addEventListener('change', function () {
+                var fecha = new Date(fechaUsuario.value);
+                textoFecha.innerHTML = fecha.toLocaleDateString();
+            });
+
+            /*Otra forma sin usar Date*/
+            // fechaUsuario.addEventListener('change', function(){
+            //     var fechaResult = fechaUsuario.value.split('-').reverse().join('/');
+            //     textoFecha.innerHTML = fechaResult;
+            // });
+
+            crearSalto();
+        }
+
+        function almacenarFechas() {
+            var apartado = crearNodo('h2', document.body, 'apartado2');
+            apartado.innerHTML = '<br/>Listado 24 fechas a 6 columnas';
+
+            var fecha1 = new Date(2019, 0, 1);
+            var fecha2 = new Date(2019, 11, 31);
+            // console.log(fecha1 + '--' + fecha2);
+
+            let numLlamada = 1; //para diferenciar las cajas con distintas clases, dependiendo de cada apartado
+            crearTabla(numLlamada);
+
+            var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+            for (let i = 0; i < cajas.length; i++) {
+                var fecha = randomDate(fecha1, fecha2);
+                fechas.push(fecha);
+                cajas[i].innerHTML = fecha.toLocaleDateString();
+            }
+        }
+
+        function ordenarFechas() {
+            /*********ORDENAMOS DE MENOR A MAYOR*********/
+            var apartado_menorMayor = crearNodo('h2', document.body, 'aparatado');
+            apartado_menorMayor.innerHTML = '<br/>De menor a mayor';
+
+            var fechas_menorMayor = fechas.sort(function (a, b) {
+                return a - b;
+            });
+
+            let numLlamada = 2;
+            crearTabla(numLlamada);
+            var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+            // console.log(cajas);
+
+            for (let i = 0; i < cajas.length; i++) {
+                var fecha = fechas_menorMayor[i].toLocaleDateString().replace(/[/]/gi, '-');
+                cajas[i].innerHTML = fecha;
+            }
+
+            /*********ORDENAMOS DE MAYOR A MENOR*********/
+            var apartado_mayorMenor = crearNodo('h2', document.body, 'aparatado');
+            apartado_mayorMenor.innerHTML = '<br/>De mayor a menor';
+
+            numLlamada = 3
+            crearTabla(numLlamada);
+            var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+            // console.log(cajas);
+
+            //Reverse de menor a mayor -> mayor a menor
+            var fechas_mayorMenor = fechas_menorMayor.reverse();
+
+            for (let i = 0; i < cajas.length; i++) {
+                cajas[i].innerHTML = fechas_mayorMenor[i].toLocaleDateString().replace(/[/]/gi, '-');;
+            }
+        }
+
+        //Diferenciar en dias
+        function diferenciarFechas() {
+            var apartado = crearNodo('h2', document.body, 'aparatado');
+            apartado.innerHTML = '<br/>Diferencias en dias con la siguiente fecha, a dos caracteres sin decimales';
+
+            let numLlamada = 4;
+            crearTabla(numLlamada);
+
+            var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+            // console.log(cajas);
+
+            var fechasOrdenadas = fechas.sort(function (a, b) {
+                return a - b;
+            });
+
+            for (let i = 0; i < cajas.length; i++) {
+                if (i + 1 < cajas.length) {
+                    var dif = fechasOrdenadas[i].getDay() - fechasOrdenadas[i + 1].getDay();
+                    fechasOrdenadas[i] += ':' + dif;
+                    console.log(fechasOrdenadas[i].split(':')[1]);
+                    cajas[i].innerHTML = fechasOrdenadas[i];
+                }
+            }
+
+            cajas[cajas.length - 1].style.display = 'none';
+
+            // var a = new Date();
+            // console.log(a.getDay());
+        }
+
+        function crearTabla(num) {
+            for (let j = 0; j < 4; j++) {
+                for (let i = 0; i < 6; i++) {
+                    var caja = crearNodo('div', document.body, '', 'cajas-fechas' + num);
+                    caja.style.width = '80px';
+                    caja.style.height = '20px';
+                    caja.style.border = '1px solid #CCC';
+                    caja.style.display = 'flex';
+                    caja.style.justifyContent = 'center';
+                    caja.style.alignItems = 'center';
+                    caja.style.float = 'left';
+                }
+
+                crearSalto();
+            }
+        }
+
+
+
+
+        function crearNodo(tipo, padre, id, _class) {
+            var nodo = document.createElement(tipo);
+            if (id != '') { nodo.id = id; }
+            if (_class != '') { nodo.className = _class; }
+            padre.appendChild(nodo);
+            return nodo;
+        }
+
+        function crearNodoInput(tipo, padre, id, _class) {
+            var nodo = document.createElement('input');
+            nodo.setAttribute('type', tipo);
+            if (id != '') { nodo.id = id; }
+            if (_class != '') { nodo.className = _class; }
+            padre.appendChild(nodo);
+            return nodo;
+        }
+
+        function crearSalto() {
+            // div vacio sin dimensiones con clear left
+            var ele = document.createElement('div'); // crear nodo
+            ele.style.clear = 'left'; // css posicionamiento
+            document.body.appendChild(ele);	// añadir nodo al dom 
+        }
+        function randomDate(start, end) {
+            // console.log('paso por randomdate');
+            return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+        }
+
+        window.onload = iniciar;
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

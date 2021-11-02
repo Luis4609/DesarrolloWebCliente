@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>FECHAS</title>
+
+    <script>
+        //Declaracion de variables
+        const fechasArray = [];
+        //Generar fechas aleatorias
+        for (let i = 0; i < 25; i++) {
+            var formatDate = [];
+            formatDate[i] = new Date(2019, random(0, 11), random(1, 28));
+            fechasArray[i] = formatDate[i].getDate() + "-" + (formatDate[i].getMonth() + 1) + "-" + formatDate[i].getFullYear();
+        }
+        //Ordenar las fechas de mayor a menor
+        const fechaMenorMayor = fechasArray.sort(function (a, b) { return new Date(a.date) - new Date(b.date) });
+        const fechaMayorMenor = fechasArray.sort(function (a, b) { return new Date(b.date) - new Date(a.date) });
+
+        function iniciar() {
+            crearInput();
+            crearSalto();
+            crearCajas("<h2><b>Listado de 24 fechas a 6 columnas</b></h2>");
+            crearSalto();
+            crearCajasMenorMayor("<h2><b>De menor a mayor</b></h2>");
+            crearSalto();
+            crearCajas("<h2><b>De mayor a menor</b></h2>")
+            crearSalto();
+            crearCajas("<h2><b>Diferencias en dias con la siguiente fecha, a dos caracteres sin decimales</b></h2>");
+            crearSalto();
+            crearCaja("<h2><b>Mayor y menor diferencia entre dias</b></h2>");
+            crearSalto();
+            crearCaja("<h2><b>Fecha más alta y más baja</b></h2>");
+            crearSalto();
+            crearCaja("<h2><b>Dias entre la fehca más alta y más baja</b></h2>")
+
+        }
+
+        //Crear el input - type = fecha
+        function crearInput() {
+            //Titulo
+            document.write('<h2><b>Ejemplo de control input type="date"</b></h2>');
+            //Variables
+            var container = generarNodo('div');
+            var element = document.createElement("input");
+            element.type = "date";
+            document.body.appendChild(container);
+            container.appendChild(element);
+            console.log(element);
+            var nodo = generarNodo('div');
+            document.body.appendChild(nodo);
+            element.addEventListener('change', function () {
+                nodo.innerText = this.value;
+            });
+            console.log(nodo);
+        }
+        //Funcion para generar un nodo html
+        function generarNodo(tipo) {
+            var element = document.createElement(tipo);
+            //Styles
+            element.style.height = '50px';
+            element.style.width = '200px';
+            element.style.padding = '5px';
+            element.style.textAlign = 'center';
+            element.style.border = '1px solid lightgrey';
+            element.style.float = 'left';
+            return element;
+        }
+        //
+        function crearCajas(text) {
+            document.write(text);
+            //var ele = document.createElement('div');
+            var contador = 0;
+            for (var k = 0; k < 4; k++) {
+                for (var j = 0; j < 6; j++) {
+                    contador++;
+                    var caja = document.createElement('div');
+                    caja.style.height = '20px';
+                    caja.style.width = '100px';
+                    caja.style.cssFloat = 'left';
+                    caja.style.border = '1px solid lightgrey';
+                    caja.style.textAlign = 'right';
+                    caja.innerHTML = fechasArray[contador];
+                    document.body.appendChild(caja);
+                    console.log(caja);
+                }
+                crearSalto();
+            }
+        }
+
+        //
+        function crearCajasMenorMayor(text) {
+            document.write(text);
+            //var ele = document.createElement('div');
+            var contador = 0;
+
+            for (var k = 0; k < 4; k++) {
+                for (var j = 0; j < 6; j++) {
+                    contador++;
+                    var caja = document.createElement('div');
+                    caja.style.height = '20px';
+                    caja.style.width = '100px';
+                    caja.style.cssFloat = 'left';
+                    caja.style.border = '1px solid lightgrey';
+                    caja.style.textAlign = 'right';
+                    caja.innerHTML = fechaMenorMayor[contador];
+                    document.body.appendChild(caja);
+                    console.log(caja);
+                }
+                crearSalto();
+            }
+        }
+
+        function crearCaja(text) {
+
+            document.write(text);
+            var element = document.createElement('div');
+            element.style.height = '25px';
+            element.style.width = '400Px';
+            element.style.border = '1px solid lightgrey';
+            element.innerHTML = 'baja:' + Math.min(fechasArray) + 'alta:' + Math.max(fechasArray);
+            document.body.appendChild(element);
+        }
+        //Generar un salto <br>
+        function crearSalto() {
+            var element = document.createElement('div');
+            element.style.clear = 'left';
+            document.body.appendChild(element);
+        }
+
+        //Generar un numero random entre un max y min
+        function random(min, max) {
+            return Math.floor(Math.random() * ((max + 1) - min) + min);
+        }
+        window.onload = iniciar;
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
