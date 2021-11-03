@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendario 2</title>
+  </head>
+
+  <body>
+    <script>
+      //Declarar variables
+      const meses = [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre",
+      ];
+      const dias = ["l", "m", "x", "j", "v", "s", "d"];
+      //Cantidad de dias, segun el mes
+      const diasMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      //Contadores para el calendario
+      var contNumDias = 0;
+      var contSemanaDias = -1;
+      var showDia;
+      //Dia
+      var diaCalendario = [];
+      for (let i = 0; i < 12; i++) {
+        var cajaMes = document.createElement("div");
+        //Añadir el titulo a la izquierda
+        var tituloMes = document.createElement("div");
+        tituloMes.innerText = meses[i];
+        cajaMes.appendChild(tituloMes);
+        //Style para la caja del mes
+        cajaMes.style.fontSize = "24px";
+        cajaMes.style.display = "flex";
+        cajaMes.style.alignItems = "center";
+        cajaMes.style.justifyContent = "center";
+        //Generar dias del mes
+        for (let j = 0; j < 49; j++) {
+          //Para construir el mes, cada mes tiene una cantidad de dias distintos
+          if (contNumDias < diasMes[i]) {
+            contNumDias++;
+            //Dia
+            const fechaCalendario = new Date("2019", meses[i], contNumDias);
+            diaCalendario.push(fechaCalendario);
+          } else {
+            break;
+          }
+          //Para saber si estamos en dias entre semana o fin de semana
+          if (contSemanaDias < 6) {
+            contSemanaDias++;
+          } else {
+            contSemanaDias = 0;
+          }
+          //Dia
+
+          var cajasDia = document.createElement("div");
+          if (dias[contSemanaDias] == "s" || dias[contSemanaDias] == "d") {
+            //Los Sabados y Domingos aparecen en rojo, para diferenciarlos de los dias laborables
+            cajasDia.style.color = "red";
+            cajasDia.classList = "festivo";
+          } else {
+            cajasDia.classList = "laborable";
+          }
+          //Style para los dias
+          cajasDia.style.fontSize = "14px";
+          cajasDia.style.margin = "2px";
+          cajasDia.style.backgroundColor = "yellow";
+          //Pintar el dia de la semana, con el numero
+          cajasDia.innerText = contNumDias + "\n" + dias[contSemanaDias];
+          cajaMes.appendChild(cajasDia);
+          cajasDia.addEventListener("click", clickDiaMensaje);
+        }
+        document.body.appendChild(cajaMes);
+        //Reset el contador de dias
+        contNumDias = 0;
+      }
+      //Al hacer click en un dia aparece un pop-up, para preguntar sobre un mensaje o recordatorio
+      function clickDiaMensaje() {
+        this.mensaje = prompt(
+          "Introduce un mensaje para el dia: ",
+          this.mensaje
+        );
+      }
+    </script>
+  </body>
+</html>
