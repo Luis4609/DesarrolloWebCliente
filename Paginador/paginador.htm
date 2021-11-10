@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paginador</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function inicio() {
+      var ele1 = document.getElementById('d1');
+      var ele2 = document.getElementById('d8');
+      ele1.onclick = cursor;
+      ele2.onclick = cursor;
+    }
+    function cursor() {
+      // controlar y mover el activo
+      /* no esta RENDERIZADO !!!!
+      console.log(document.getElementById('d2').style.backgroundColor);
+      */
+
+      /*
+      
+      no queda otra que controlarlo por JS
+      
+      */
+
+    }
+    window.onload = inicio;
+  </script>
+</head>
+
+<body>
+
+  <h2>Pagination with Borders</h2>
+
+  <div class="pagination">
+    <a id='d1'>&laquo;</a>
+    <a id='d2' href="#d2">1</a>
+    <a id='d3' href="#d3">2</a>
+    <a id='d4' href="#d4">3</a>
+    <a id='d5' href="#d5">4</a>
+    <a id='d6' href="#d6">5</a>
+    <a id='d7' href="#d7">6</a>
+    <a id='d8'>&raquo;</a>
+  </div>
+
+</body>
+
+</html>

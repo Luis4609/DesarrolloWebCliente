@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>tablaValores</title>
+
+<style>
+.miTabla {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.miTabla td, .miTabla th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.miTabla tr:nth-child(even){background-color: #f2f2f2;}
+.miTabla tr:hover {background-color: #ddd;}
+.miTabla th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+<script>
+
+const max=16*Math.PI/4; // =4*PI para dibujar la curva completa
+const paso=0.3; // cambia el paso para ver la precision
+
+function iniciar(){
+	/*
+	-creamos una cadena para imprimir
+	-esta sera nuestra estructura de datos
+	-la usaremos como entrada de datos para la tabla y el canvas
+	*/
+
+	// cabecera
+	var tablaValores='x#cos(x)#seno(x)#seno(x)#14 decimales#x con decimales<br/>';
+	// datos
+	for (j=0;j<max;j+=paso){
+		tablaValores+=j.toFixed(2)+'#'+Math.cos(j).toFixed(2)+'#'+Math.sin(j).toFixed(2)+'#'+Math.sin(j)+'#'+j.toFixed(14)+'#'+j+'<br/>';
+	}
+	// crear elementos de la pagina
+	crearNodoInner('p','');	
+	crearNodoInner('div','1) texto csv :');
+	crearNodoInner('div',tablaValores);
+	crearNodoInner('p','');	
+	crearNodoInner('div','2) tabla de valores en tabla :');
+	crearTabla('tabla1',tablaValores);
+	ponerEstiloTabla('tabla1','miTabla');
+	crearNodoInner('p','');	
+	crearNodoInner('div','3) en un canvas :');
+	crearNodoId('canvas','canvas1');
+	pintaCanvas('canvas1',tablaValores);
+}
+function crearNodoId(tipo,id){
+	var ele=document.createElement(tipo);
+	document.body.appendChild(ele);
+	ele.id=id;
+}
+function crearNodoInner(tipo,valor){
+	var ele=document.createElement(tipo);
+	document.body.appendChild(ele);
+	ele.innerHTML=valor;
+	return ele;
+}
+function crearNodoP(padre,tipo,valor){
+	var ele=document.createElement(tipo);
+	padre.appendChild(ele);
+	ele.innerHTML=valor;
+	return ele;
+}
+function ponerEstiloTabla(id,clase){
+	// cargar los estilos en la tabla solo con la clase
+	document.getElementById(id).className=clase;
+}
+function crearTabla(id,texto){
+var tabla=crearNodoP(document.body,'table','');
+tabla.id=id;
+var filas=texto.split('<br/>');
+// cabeceras
+var cabecera=crearNodoP(tabla,'tr','');
+var dato=filas[0].split('#'); // extraer datos
+for (let v of dato){
+	crearNodoP(cabecera,'th',v);
+}
+// filas
+for (let j=1;j<filas.length-1;j++){
+	let fila=crearNodoP(tabla,'tr','');
+	// celdas
+	let dato=filas[j].split('#');
+	for (let d of dato){
+		crearNodoP(fila,'td',d);
+	}
+}
+return tabla;
+}
+function pintaCanvas(id,tablaValores){
+    var  canvas1 = document.getElementById(id); // contenedor
+    canvas1.style.width='600px';
+    canvas1.style.height='200px';
+    canvas1.style.background='#CCC';
+    gcc  = canvas1.getContext('2d'); // contexto de dibujo
+    gcc.beginPath(); // inicio de la ruta de dibujo desde 0,0
+    //gcc.moveTo(0,0); // posicionar el cursor   
+    var filas=tablaValores.split('<br/>');
+	for (fila of filas){
+		var datos=fila.split('#');	
+		var x=datos[0],y=datos[1];
+		console.log('x y:',x,y);			
+		gcc.lineTo(20+20*x,70+40*y); // pinta una linea hasta coordenadas x,y
+	}
+    gcc.stroke(); // dibuja
+}
+window.onload = iniciar; 
+</script>
+</head>
+<body>
+<b>EJEMPLO</b> de tabla de valores
+</body>
+</html>

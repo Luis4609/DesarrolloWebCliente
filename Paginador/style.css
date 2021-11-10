@@ -1,0 +1,39 @@
+.pagination {
+  display: inline-block;
+}
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border: 1px solid #ddd;
+}
+.pagination a:hover {
+  background-color: #ddd;
+}
+a:target,
+a:active {
+  background-color: #4caf50 !important; /* el activo no cambia de color */
+  color: white;
+  border: 1px solid #4caf50;
+}
+
+/*
+:target;
+al clicar una pagina saltamos con el href,
+el salto no tiene efecto,
+pero si :target;
+*/
+/*
+podemos usar una clase para controlar desde JS
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+*/

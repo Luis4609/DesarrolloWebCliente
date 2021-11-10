@@ -1,0 +1,130 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>calendario2</title>
+
+<style>
+/* podemos usar clases para estilizar los tipos de dias */
+.titulo{
+	width:100%;
+	height:40px;
+	clear:both;
+	padding:40px;
+	font-size:30px;
+}
+.texto{
+	width:160px;
+	height:40px;
+	font-size:24px;
+	float:left;
+	padding:8px;
+	clear:left;
+	text-align:right;
+}
+.festivo{
+	color:red;
+}
+.laborable{
+	color:black;
+}
+.normal{
+	background-color: #e6e600;
+   	transition: background-color 1s, color 1s, border-radius 1s;	
+	border-radius: 10%;	
+}
+.normal:hover{
+	background-color: #e60000;
+	color:white;
+	border-radius: 25%
+}
+.apagado{
+	background-color:#fed;
+}
+.festivo,.laborable{ /* comunes ! coma ! */
+	font-size:14px;
+	margin:1px;
+	text-align:center;
+	width:20px;
+	height:50px;
+	float:left;		
+}
+.hoy{
+	background-color:#67A8E6;
+	color:white;
+}
+</style>
+
+<script>
+// GLOBAL
+const año=2019;
+const ds='LMXJVSD';
+const ms=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+// MAIN
+function iniciar(){
+	for (var j=0;j<10;j++){
+		a(año+j);	
+	}
+}
+function a(y){
+	var hoy=new Date();
+	const ns=7*7; // tablero=dias*semanas	
+	nodo().innerHTML='<div class="titulo">Año '+y+'</div>';
+	var d=0; // dia de la semana
+	for (var j=0;j<12;j++){ // meses base 0..11
+		texto(ms[j]);
+		var diaUno=new Date(y,j,1);
+		diaUno.setDate(diaUno.getDate()-diaUno.getDay()-6); // primer dia de la fila
+		for (var k=0;k<ns;k++){ // dias por cada fila
+			var dia=new Date(diaUno.getTime()); // primer dia
+			dia.setDate(diaUno.getDate()+k); // dias desde el primero de la linea
+			var st=(dia.getMonth()==j)?'normal':'apagado';
+			var st=(dia.getDay()==0||dia.getDay()==6)?st+' festivo':st+' laborable';
+			var st=(dia.getMonth()==j && dia.toDateString()==hoy.toDateString())?st+' hoy':st;			
+			caja(dia.getDate()+'<br/>'+ds[d],st); // pinta el dia
+			if(++d==7)d=0; // decrementa y evalua 	
+		}
+	}	
+}
+function texto(t){ // div para el mes
+	var ele=nodo();
+	ele.innerHTML=t;
+	ele.className='texto';
+}
+function caja(texto,clase){ // div para el dia
+	var ele=nodo();
+	ele.innerHTML=texto;
+	console.log(clase);
+	ele.className=clase;
+	if (clase.indexOf('normal')>-1){
+		ele.addEventListener('click',agenda);
+	}		
+}
+function agenda(){
+	// solicita texto al usuario
+	// solo si hay texto lo almaceno
+	var t=prompt("Comentario",this.comentario);
+	console.log('HOLA',t);
+	if (t!=null){ // boton cancel es null
+		this.comentario=t; // guardar el texto
+		s=(t=='')?'':'1px solid black'; // estilo si hay texto
+		this.style.border=s;
+	}
+}
+function nodo(){ // crear nodo div
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);
+	return ele;
+}
+function aleatorio(a,b) { // numero al azar entre a y b incluidos
+	return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+window.onload = iniciar; 
+</script>
+
+</head>
+ 
+<body></body>
+
+</html>

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>calendario</title>
+
+<style>
+/* usamos clases para estilizar los diferentes tipos de dias */
+.texto{
+	width:160px;
+	height:40px;
+	font-size:24px;
+	float:left;			/* TODOS */
+	padding:8px;
+	clear:left;			/* salto de linea */
+	text-align:right;
+}
+.festivo{
+	color:red;
+}
+.laborable{
+	color:black;
+}
+.normal{
+	background-color: #e6e600;
+}
+.apagado{
+	background-color:#ffffcc;
+}
+.festivo,.laborable{		/* estilos comunes separados por coma */
+	font-size:14px;
+	margin:1px;
+	text-align:center;
+	width:20px;
+	height:50px;
+	float:left;				/* TODOS */	
+}
+</style>
+
+<script>
+
+/*
+(ver calendario)
+Realiza un calendario lineal
+-Establece con float y clear el maquetado de los dias en lineas
+-Poner todos los textos a 14px
+-Establece los estilos de cada tipo de dia usando clases (laborable,festivo,dentro del mes: normal,apagado)
+-Añade los meses de los meses con letras a 24px
+lenguaje:[],getMonth,getDay(dia de la semana),new Date,getTime,setDate,getDay()+1,var1=(cond)?val1:val2,if(cond)var=val;
+*/
+
+// GLOBAL
+const año=2022; // representar ese año
+const ds='LMXJVSD'; // dias de la semana español
+const ms=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']; // meses español
+
+// MAIN
+function iniciar(){
+	const ns=7*7; // tablero=dias*semanas	
+	nodo().innerHTML='<h1>Año '+año+'</h1><br/>'; //titulo
+	var d=0; // primer dia de la semana es domingo=0
+	for (var j=0;j<12;j++){ // meses 0..11
+		nodoTexto(ms[j]); // imprimir nombre del mes
+		var diaUno=new Date(año,j,1); // primer dia del mes
+		diaUno.setDate(diaUno.getDate()-diaUno.getDay()-6); // primer dia de la fila lo calculo restando el dia de la semana y seis mas como margen izquierdo
+		for (var k=0;k<ns;k++){ // dias por cada fila
+			var dia=new Date(diaUno.getTime()); // primer dia de la fila
+			dia.setDate(diaUno.getDate()+k); // aumentar k dias en la fila
+			var st=(dia.getMonth()==j)?'normal':'apagado'; // dias relleno
+			var st=(dia.getDay()==0||dia.getDay()==6)?st+' festivo':st+' laborable';
+			nodoDia(dia.getDate()+'<br/>'+ds[d],st); // pinta el dia
+			if(++d==7)d=0; // indice dia de la semana  	
+		}
+	}
+}
+function nodoTexto(t){ // crear un div para el nombre del mes
+	var ele=nodo();
+	ele.innerHTML=t;
+	ele.className='texto';
+}
+function nodoDia(texto,clase){ // crear un div para el dia
+	var ele=nodo();
+	ele.innerHTML=texto;		
+	ele.className=clase;		
+}
+function nodo(){ // crear un div
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);
+	return ele;
+}
+function aleatorio(a,b) { // numero al azar entre a y b incluidos
+	return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+window.onload = iniciar; 
+</script>
+</head>
+<body></body>
+</html>

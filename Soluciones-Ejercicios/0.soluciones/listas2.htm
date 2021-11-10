@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>listas2</title>
+
+<script>
+
+
+/*
+
+Repetir el ejercicio anterior , ahora con una lista de objetos.
+Atributos del objeto : 
+-color(#aabbcc),
+-texto(1 a 10 char),
+-nivel(A,B o C),
+-version(numero de 0 a 9). 
+Imprime:
+- Los nombres y valores de los atributos del primer objeto
+Usando el atributo version, imprime:
+- Lista de versiones
+- En orden ascendnte
+- En orden descendente
+- Filtra los numeros entre 0 y 5
+- Calcula la media
+- Calcula la suma
+- Calcula el maximo
+- Calcula el minimo
+lenguaje:for..in,for..of,reduce,objeto.atributo
+
+*/
+
+// GLOBALES
+const nNum=10; // numero de elementos del array
+const nMax=1000; // numero maximo generado
+var lista=[]; // tambien const
+
+// MAIN
+function iniciar(){
+	// primer nivel llamada a las funciones
+	var res='<h2>array de objetos</h2>'; // cadena de impresion
+	generarDatos();
+	res+=imprimir1()+'<br/>';
+	res+=imprimir2()+'<br/>';
+	res+='Trabajar con el atributo <b>versión</b>:<br/>';
+	res+='lista: '+imprimirLista()+'<br/>';
+	ascendente(); // ordena lista[]
+	res+='ascendente: '+imprimirLista()+'<br/>';	
+	descendente(); // ordena lista[]
+	res+='descendente: '+imprimirLista()+'<br/>';
+	res+='media: '+media2()+'<br/>';	
+	res+='maximo: '+maximo()+'<br/>';	
+	res+='minimo: '+minimo()+'<br/>';	
+	res+='suma: '+suma()+'<br/>';
+	res+='filtra (0,5): '+filtra(0,5)+'<br/>';
+	document.write(res);
+}
+function generarDatos(){
+	for (j=0;j<nNum;j++){
+		var z={color:'#123123',texto:'hola',nivel:'A',version:aleatorio(0,9)};
+		lista[j]=z; // cramos los indices del array
+	}
+	console.log(lista);	
+}
+function imprimirLista(){
+	var res='';
+	for (x of lista){
+		res+=x.version+' ';
+	}
+	return res;
+}
+function filtra(a,b){
+	var res='';
+	for (x of lista){
+		if( x.version >= a && x.version <= b ){
+			res+=x.version+' ';
+		}
+	}
+	return res;
+}
+function media2(){
+	var s=0,n=lista.length;
+	for (x of lista){s+=x.version;}
+	return (s/n);
+}
+function suma(){
+	var s=0;
+	for (x of lista){s+=x.version;}
+	return s;
+}
+function media1(){
+	// no accede al atributo !!!
+	console.log('len: ',lista.length);
+	return lista.reduce(function(total,value){return total+value.version})/lista.length;
+}
+function minimo(){
+	ascendente();
+	return lista[0].version;
+}
+function maximo(){
+	descendente();
+	return lista[0].version;
+}
+function descendente(){
+	lista.sort(function(a, b){return b.version - a.version});
+	return lista.join(' ');
+}
+function ascendente(){
+	lista.sort(function(a, b){return a.version - b.version});
+}
+function imprimir1(){
+	// imprime los atributos y valores de un objeto
+	var res='Primer objeto de la lista (for)= ';
+	for (x in lista[0]){res+=x+':'+lista[0][x]+','}
+	return res.substring(0,res.length - 1); // eliminar el ultimo caracter la coma
+}
+function imprimir2(){
+	// otra forma de imprimir: serializar el objeto, eliminar comillas, imprimir
+	console.log('paso1 ',lista[0]);
+	console.log('paso2 ',JSON.stringify(lista[0]));
+	console.log('paso3 ',JSON.stringify(lista[0]).replace(/\"|\{|\}/g,''));
+	return 'Primer objeto de la lista (serializar)= '+JSON.stringify(lista[0]).replace(/\"|\{|\}/g,'');
+}
+function aleatorio(a,b) {
+	return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+window.onload = iniciar; 
+</script>
+</head>
+ <body>
+</body>
+</html>

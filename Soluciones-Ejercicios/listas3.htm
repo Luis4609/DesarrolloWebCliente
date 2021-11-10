@@ -1,0 +1,146 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>listas3</title>
+
+<script>
+
+/*
+
+Creamos un array de objetos
+Cada objetos lo representamos como un div
+Sobre el array realizamos diferentes operaciones
+Usamos la representacion grafica para ver la lista
+
+innerHTML
+style. border backgroundColor width height float margin textAling
+
+*/
+
+// GLOBALES
+const nNum=10; 			// numero de objetos en la lista
+const alto=[50,70,90]; 	// dimensiones posibles de la caja
+const ancho=[40,60];   	
+const nivel='abc'; // valido ['a','b','c']
+const charTexto='ABCDEFGHIJKL';
+var lista=[];
+
+// MAIN
+function iniciar(){
+	// imprimir los contenedores de la pagina
+	// por claridad todas las funciones retornan un array de objetos
+	// las funciones imprimir imprimen ese array de objetos
+	imprimirTexto('Listado (texto:nivel y version)');
+	imprimirCajas(generar());
+	imprimirTexto('Ascendente x version');
+	imprimirCajas(ascendente());
+	imprimirTexto('Descendente x version');
+	imprimirCajas(descendente());
+	imprimirTexto('Filtrado x version de 0 a 5');
+	imprimirCajas(filtrar(0,5));
+	imprimirTexto('<b>suma</b>: '+suma());
+}
+
+function imprimirTexto(a){
+	// imprime los contenedores-div que contendran texto
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);
+	ele.style.border='1px solid #BBB';	
+	ele.style.backgroundColor='white';
+	ele.style.width='800px';
+	ele.style.height='24px';
+	ele.style.margin='8px';
+	ele.innerHTML='&nbsp;'+a; // HTML entities
+}
+function imprimirCajas(k){
+	// recorre toda la lista de objetos para imprimirlos dentro del contenedor-div
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);
+	ele.style.border='1px solid black';	
+	ele.style.backgroundColor='white';
+	ele.style.width='800px';
+	ele.style.height='100px';
+	ele.style.margin='8px';
+	for (var j=0;j<k.length;j++){ // recorrer los objetos
+		imprimirCaja(ele,k[j]);
+	}
+}
+function imprimirCaja(p,x){
+	// imprime el objeto como un div
+	// p : contenedor del nodo
+	// x : objeto para imprimir el div
+	var ele=document.createElement('div');
+	p.appendChild(ele);
+	ele.style.border='1px solid black';
+	ele.innerHTML=x.texto+':'+x.nivel+'<br/>'+x.version,
+	ele.style.backgroundColor=x.color;
+	ele.style.width=x.w;
+	ele.style.height=x.h;
+	ele.style.float='left';
+	ele.style.margin='4px';
+	ele.style.textAlign='center';			
+}
+function filtrar(a,b){
+	// recorrer los objetos y los que pasen el filtro referenciarlos en el nuevo array lista2
+	var lista2=[];
+	var j=0;
+	for (x of lista){
+		console.log(x.version,' ',a,' ',b);
+		if( x.version >= a && x.version <= b ){
+			lista2[j]=x; // referenciamos !! no copiamos los objetos
+			j++;
+		}
+	}
+	console.log(lista2); 
+	return lista2; // retornamos la lista filtrada tambien con los objetos
+}
+function suma(){
+	var s=0;
+	for (x of lista){s+=x.version;}
+	return s;
+}
+function descendente(){
+	lista.sort(function(a, b){return b.version - a.version});
+	return lista;
+}
+function ascendente(){
+	lista.sort(function(a, b){return a.version - b.version});
+	return lista;
+}
+function generar(){
+	for (j=0;j<nNum;j++){
+		var z={ // crear el objeto
+			color:ponColor(),
+			texto:(charTexto).charAt(aleatorio(0,11)),
+			nivel:nivel[aleatorio(0,2)],
+			h:alto[aleatorio(0,alto.length-1)]+'px',
+			w:ancho[aleatorio(0,ancho.length-1)]+'px',
+			version:aleatorio(0,9)
+			};
+		lista[j]=z; // creamos los indices del array [j] y almacenamos el objeto
+	}
+	console.log(lista);	
+	return lista;
+}
+function aleatorio(a,b) {
+	// valor al azar entre a y b
+	return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+function ponColor(){
+	// generar un color css al azar , en hexadecimal y dos cifras
+	var r=aleatorio(250,255).toString(16).padStart(2,0); 
+	var g=aleatorio(0,255).toString(16).padStart(2,0);  
+	var b=aleatorio(0,255).toString(16).padStart(2,0);
+	return '#'+r+g+b;
+}
+window.onload = iniciar; // inicio del js
+</script>
+
+</head>
+ 
+<body>
+</body>
+
+</html>

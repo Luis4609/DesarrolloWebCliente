@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>menu2</title>
+
+<style>
+/* estilo en la misma pagina en la cabecera */
+/* color del fondo al pasar por encima del div */
+.datos:hover{background-color:grey;}
+</style>
+
+<script>
+/*
+
+-Los contenedores son div con eventos de click
+-Usaremos innerHTML del div para vaciar el contenedor
+-Usaremos una clase y className con hover para el efecto 
+
+*/
+
+var sitios=[
+'A1#america#00',
+'A2#europa#00',
+'A3#africa#00',
+'A4#asia#00',
+'B1#canada#A1',
+'B2#eeuu#A1',
+'B3#brasil#A1',
+'B4#argentina#A1',
+'B5#urugay#A1',
+'B6#chile#A1',
+'B7#francia#A2',
+'B8#italia#A2',
+'C1#toronto#B1',
+'C2#quebec#B1',
+'C3#lyon#B7',
+'C4#paris#B7',
+'C5#bayona#B7',
+'C6#nantes#B7',
+'C7#toulouse#B7'
+];
+
+var datos=[]; // contenedor del menu
+var migas=[]; // ruta de migas
+
+function iniciar(){
+
+	// datos de entrada
+	var st='CODIGO#NOMBRE#ANCESTRO<br/>';
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);	
+	for (x of sitios)st+=x+'<br/>';
+	ele.style.width='400px';
+	ele.style.height='400px';
+	ele.innerHTML=st;
+
+	// migas
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);
+	ele.id='migas';
+	ele.innerHTML='<b>pulsa para seleccionar</b>';
+	ele.style.width='400px';
+	ele.style.height='20px';
+	ele.style.textAlign='left';
+	var ele=document.createElement('p');
+	document.body.appendChild(ele);	
+
+	// datos selectores
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);
+	ele.id='datos';
+	datos=cargarDatos(); // array de objetos
+	var lista=lineaCod('00',datos);
+	pintaLinea(lista);
+}
+function pintaLinea(lista){
+	console.log(lista);
+	for (j in lista){
+		var ele=document.createElement('div');
+		document.getElementById('datos').appendChild(ele);
+		ele.innerHTML=lista[j].b;
+		ele.codigo=lista[j].a;
+		ele.arriba=lista[j].c;
+		ele.style.border='1px solid #DDD';
+		ele.style.width='100px';
+		ele.style.float='left';
+		ele.style.textAlign='center';
+		ele.className='datos';
+		ele.addEventListener('click',clickCaja)
+	}
+}
+function clickCaja(){
+	migas.push(this.innerHTML);
+	document.getElementById('migas').innerHTML='home>'+migas.join('>');
+	console.log(migas);
+	document.getElementById('datos').innerHTML=''; // vaciar contenedor
+	var lista=lineaCod(this.codigo,datos);
+	pintaLinea(lista);
+}
+function lineaCod(codigo,lista){
+	var res=[];
+	for (d of lista){
+		if (d.c==codigo){
+			res.push(d);
+		}
+	}
+	return res;
+}
+function cargarDatos(){
+	// array de cadena a array de objetos
+	var lista=[];
+	for (d of sitios){
+		var c=d.split('#');
+		var obj={};
+		obj.a=c[0];
+		obj.b=c[1];
+		obj.c=c[2];
+		lista.push(obj);
+	}
+	return lista;
+}
+function lineaSelectores(nivel){
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);
+	ele.innerHTML='HOLA';
+	ele.style.width='200px';
+}
+
+window.onload=iniciar; // inicio al terminar la carga de la pagina
+</script>
+ 
+</head>
+ 
+<body>
+</body>
+
+</html>

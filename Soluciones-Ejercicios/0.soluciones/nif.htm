@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>verificar NIF</title>
+
+<script type="text/javascript">
+// throw "HOLA"; // salida del programa
+var letras = 'TRWAGMYFPDXBNJZSQVHLCKET';
+/*
+podriamos convertir la cadena en array, pero no es necesario para acceder a las letras de la cadena podemos usar []
+var letras=Array.from(letras); 
+var letras=letras.split('');
+var letras=[...letras];
+var letras=Object.assign([],letras);
+*/
+var numero = prompt("Introduce tu número de DNI (sin la letra)");
+var letra = prompt("Introduce la letra de tu DNI (en mayúsculas)");
+
+console.log(numero,letra,letras); 
+
+/*
+
+aqui puedes añadir tus chequeos
+
+*/
+var error=false;
+document.write('<b>número</b>: '+numero+'<br/>');
+document.write('<b>letra</b>: '+letra+'<br/>');
+try {
+	if ( isNaN(numero) ) throw 'número no es válido'; // pober siempre parentesis en la condicion
+	if( numero < 0 || numero > 99999999 ) throw 'número fuera de rango';
+	if( letra < 'A' || letra > 'Z' ) throw 'letra fuera de rango A-Z';
+	var letraCalculada = letras[numero % 23];
+  	if( letraCalculada != letra ) throw 'La letra o el número proporcionados no son correctos';
+  	/* añade aqui tus chequeos */
+}
+catch(err){
+	error=true;
+	document.writeln('detalle del error: '+err+'<br/>');
+}
+finally{
+	document.write('resumen: ');
+	if (!error) document.write("CORRECTO") 
+	else document.write("ERRORES")
+}
+</script>
+
+</head>
+ 
+<body>
+<p>NOTA: esta página calculó con popups (una práctica no aconsejada)</p>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>listas</title>
+
+<script>
+
+/*
+
+Genera un array de 10 números al azar entre 0 y 1000. 
+- Imprime por pantalla
+- Lista
+- En orden ascendnte
+- En orden descendente
+- Filtra los numeros entre 0 y 100
+- Calcula la media
+- Calcula la suma
+- Calcula el maximo
+- Calcula el minimo
+lenguaje:filter,reduce,min,apply,sort
+
+*/
+
+const nNum=10;
+const nMax=1000;
+var lista=[];
+
+function iniciar(){
+	var res='<h2>ejemplos de metodos de array</h2>';
+	res+='lista: '+genera4()+'<br/>';
+	res+='ascendente: '+ascendente()+'<br/>';
+	res+='descendente: '+descendente2()+'<br/>';
+	res+='media reduce: '+media1()+'<br/>';
+	res+='media suma/elementos: '+media2()+'<br/>';
+	res+='media reduce abreviado: '+media3()+'<br/>';
+	res+='maximo apply: '+maximo()+'<br/>';
+	res+='minimo apply: '+minimo()+'<br/>';
+	res+='maximo sort: '+max2()+'<br/>';
+	res+='minimo sort: '+min2()+'<br/>';
+	res+='suma reduce: '+suma()+'<br/>';
+	res+='filtra entre 0 y 100: '+filtra(0,100)+'<br/>';
+	document.write(res);
+}
+function filtra(a,b){
+	return lista.filter(function(v){return (v>=a&&v<=b)}).join(' ');
+}
+function media2(){
+	var s=0,n=lista.length;
+	for (j=0;j<n;j++){s+=lista[j]}
+	return (s/n);
+}
+function suma(){
+	return lista.reduce((t,v)=>{return t+v;}); // arrow function
+}
+function media3(){
+	return lista.reduce((t,v)=>{return t+v;})/lista.length; // arrow function
+}
+function media1(){
+	return lista.reduce(function(total,value){return total+value;})/lista.length;
+}
+function minimo(){
+	return Math.min.apply(null,lista); // (objeto,array)
+}
+function maximo(){
+	return Math.max.apply(null,lista); // (objeto,array)
+}
+function min2(){
+	lista.sort();
+	return lista[0]; // (objeto,array)
+}
+function max2(){
+	lista.sort();
+	return lista[lista.length-1]; // (objeto,array)
+}
+function descendente(){
+	lista.sort(function(a, b){return b - a});
+	return lista.join(' ');
+}
+function descendente2(){
+	lista.reverse();
+	return lista;
+}
+function ascendente(){
+	lista.sort(function(a, b){return a - b});
+	return lista.join(' ');
+}
+
+function genera(){
+	for (j=0;j<nNum;j++){
+		lista.push(aleatorio(0,nMax));
+	}
+	console.log(lista);	
+	return lista;
+}
+function genera4(){
+	var j=nNum;
+	while (j--){
+			lista[j]=aleatorio(0,nMax);
+	}
+	console.log(lista);	
+	return lista;
+}
+function genera3(){
+	var j=nNum;
+	while (j--){lista.push(aleatorio(0,nMax));}
+	console.log(lista);	
+	return lista;
+}
+function genera2(){
+	// uso del metodo from para crear el array
+	// no visto en clase
+	lista=Array.from({length:10},function(){return aleatorio(0,nMax)});
+	console.log(lista);
+	return lista;
+	// parametro 1 : objeto que genera el array aqui solo el atributo longitud
+	// parametro 2 : map funcion para cada elemento
+}
+function aleatorio(a,b) {
+	return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+window.onload = iniciar; 
+</script>
+
+</head>
+ 
+<body>
+</body>
+
+</html>

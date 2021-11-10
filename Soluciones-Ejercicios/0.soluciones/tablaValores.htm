@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>tablaValores</title>
+
+<style>
+.tablita {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.tablita td, .tablita th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.tablita tr:nth-child(even){background-color: #f2f2f2;}
+.tablita tr:hover {background-color: #ddd;}
+.tablita th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+<script>
+
+const max=16*Math.PI/4; // =4*PI para dibujar la curva completa
+const paso=0.3; // cambia el paso para ver la precision
+
+function iniciar(){
+	// cabecera
+	var txt='x#cos(x)#seno(x)#seno(x)#14 decimales#x con decimales<br/>';
+	// crear valores
+	for (j=0;j<max;j+=paso){
+		txt+=j.toFixed(2)+'#'+Math.cos(j).toFixed(2)+'#'+Math.sin(j).toFixed(2)+'#'+Math.sin(j)+'#'+j.toFixed(14)+'#'+j+'<br/>';
+	}
+	// crear elementos de la pagina
+	crearNodo('p','');	
+	crearNodo('div','1) texto csv :');
+	crearNodo('div',txt);
+	crearNodo('p','');	
+	crearNodo('div','2) tabla de valores en tabla :');
+	crearNodo('div',tablaTxt('tabla1',txt))
+	estiloTabla('tabla1','tablita');
+	crearNodo('p','');	
+	crearNodo('div','3) en un canvas :');
+	crearNodoId('canvas','canvas1');
+	pintaCanvas('canvas1',txt);
+	
+}
+function pintaCanvas(id,txt){
+    var  canvas1 = document.getElementById(id);
+    canvas1.style.width='600px';
+    canvas1.style.height='200px';
+    canvas1.style.background='#CCC';
+    gcc  = canvas1.getContext('2d');
+    gcc.beginPath();
+    //gcc.moveTo(0,0);   
+    var filas=txt.split('<br/>');
+	for (fila of filas){
+		var datos=fila.split('#');	
+		var x=datos[0],y=datos[1];
+		console.log('x y:',x,y);			
+		gcc.lineTo(20+20*x,70+40*y);
+	}
+    gcc.stroke();
+}
+function crearNodoId(tipo,id){
+	var ele=document.createElement(tipo);
+	document.body.appendChild(ele);
+	ele.id=id;
+}
+function crearNodo(tipo,valor){
+	var ele=document.createElement(tipo);
+	document.body.appendChild(ele);
+	ele.innerHTML=valor;
+}
+
+function tablaTxt(id,texto){
+
+// cadena para imprimir
+var res='';
+
+// filas
+var filas=texto.split('<br/>');
+res='<table id="'+id+'">';
+
+// cabeceras
+var dato=filas[0].split('#');
+res+='<tr>';
+for (var v of dato){
+	res+='<th>'+v+'</th>';
+}
+res+='</tr>';
+
+// recorrer filas
+for (var j=1;j<filas.length-1;j++){
+	res+='<tr>';
+	// celdas
+	var dato=filas[j].split('#');
+	for (var d of dato){
+		res+='<td>'+d+'</td>';
+	}
+	res+='</tr>'
+}
+res+='</table>';
+//console.log(filas);
+return res;
+}
+
+function estiloTabla(id,clase){
+	document.getElementById(id).className=clase;
+}
+
+window.onload = iniciar; 
+
+</script>
+
+</head>
+ 
+<body>
+<b>EJEMPLO</b> de tabla de valores
+</body>
+
+</html>

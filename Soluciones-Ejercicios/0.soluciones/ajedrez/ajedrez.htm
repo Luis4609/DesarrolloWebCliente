@@ -1,0 +1,97 @@
+﻿ <html>
+	<head>
+	<meta charset="UTF-8">
+	
+	<style>
+	input,span{
+		margin:4px;
+		padding:4px;
+		width:50px;
+	}	
+	body{
+		font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 14px;
+		line-height: 1.42857;
+		color: #2D2D2D;
+	}		
+	</style>
+
+	<script>
+	function inicio(){
+		// carga de la pagina
+	}
+	function calcular(){
+		var a=parseInt(document.getElementById('a').value);
+		var b=parseInt(document.getElementById('b').value);
+		var c=parseInt(document.getElementById('c').value);
+		var r=a;		
+		for (i=2;i<=c;i++){
+			r=a+r*b;
+		}
+		document.getElementById('s').innerHTML=r;	
+	}
+
+	window.onload = function(){inicio();}
+	</script>
+	</head>
+
+
+	<body>
+		<h2>Los origenes del ajedrez</h2>
+		<a href='https://www.aceptaelreto.com/problem/statement.php?id=236&cat=80' target='blank'>enlace a programame</a>
+		<p>
+		 Una conocida leyenda cuenta que el rey hindú Sheram se aburría mucho en su palacio y pidió que le buscaran
+		 un juego que le distrajese de su tedio. Así, uno de sus súbditos inventó para él el ajedrez. 
+		 El rey Sheram quedó maravillado con las múltiples posibilidades que ofrecía el juego y estuvo seguro de que 
+		 con él no volvería a aburrirse. Encantado, mandó llamar a su súbdito y le ofreció como premio cualquier cosa 
+		 que desease de su reino. Seta1, el inventor del juego, le pidió al soberano:
+		"Manda que me entreguen un grano de trigo por la primera casilla del tablero. 
+		Por la segunda casilla ordena que me den dos granos; por la tercera 4; por la cuarta 8; por la quinta 16; 
+		por la sexta 32 y así sucesivamente."Quedó sorprendido el rey Sheram de la aparente modestia del regalo, 
+		pues Seta podría haber reclamado oro y riqueza. Cuál no sería su sorpresa cuando, al cabo de varios días de cálculos, 
+		los matemáticos de su reino le dijeron ¡que no había trigo suficiente en sus graneros para satisfacer las demandas
+		de su súbdito!
+		¿Serías capaz de calcular la cantidad de trigo solicitada por Seta?		
+		</p>	
+		<h2>Entrada</h2>
+		<div id="inputDescription">
+		<p>
+		La entrada consta de una serie de casos de prueba terminados con tres
+		ceros. Cada caso de prueba se compone de tres n&uacute;meros. El primero es el n&uacute;mero de granos de trigo que solicita 
+		Seta en la primera casilla del tablero. El segundo es el valor por el que tendr&aacute; que multiplicarse al pasar
+		de una casilla a la siguiente. El tercero es el n&uacute;mero de casillas. Ninguno de los tres n&uacute;meros ser&aacute; mayor que 10<sup>6</sup>.
+		</p>
+		</div>
+		<h2>Salida</h2>
+		<div id="outputDescription">
+		<p>
+		Para cada caso de prueba, el programa escribir&aacute;  una l&iacute;nea con  la cantidad de granos
+		de trigo que el soberano deber&aacute; darle a Seta. Se garantiza que el
+		resultado ser&aacute; siempre menor o igual que 10<sup>18</sup>.</p> 
+		</div>
+		<h2>Entrada de ejemplo</h2>
+		<div class="code" id="sampleIn">
+		<pre>
+1 1 10
+1 2 3
+3 2 3
+0 0 0
+		</pre>
+		</div>
+		<h2>Salida de ejemplo</h2>
+		<div class="code" id="sampleIn">
+		<pre>
+10
+7
+21
+		</pre>
+		</div>
+		<h2>Solucion JavaScript</h2>
+		inicio<input id='a' type='text'/>
+		multiplicador<input id='b' type='text'/>
+		casillas<input id='c' type='text'/>
+		<button onclick='calcular()'>=</button>
+		<span id='s'></span>
+		<br/><br/><br/><br/><br/><br/>
+	</body>
+</html>
