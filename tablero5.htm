@@ -1,0 +1,158 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>tablero4 - Alfredo Puerta</title>
+
+	<script>
+		//función que crea todos los elementos con los atributos acordados.
+		function iniciar() {
+			console.log('paso por iniciar');
+			for (j = 1; j < 9; j++) {
+				for (k = 1; k < 9; k++) {
+					var ele = crearCaja('div');
+					ele.id = 'caja' + j + k;
+					ele.innerHTML = 'H'; /* + j + k;*/ //debería ser 'C' + j + k;
+					ele.style.textAlign = 'top left'/*'center';*/
+					ele.style.cssFloat = 'left'; // css posicionamiento
+					ele.style.backgroundColor = 'rgb(' + numRandom() + ', ' + numRandom() + ', ' + numRandom() + ')'; //color en formato rgb
+					ele.style.width = '60px';
+					ele.style.height = '60px';
+					ele.style.margin = '4px';
+					ele.style.outline = '3px solid black'
+					ele.style.cursor = 'pointer';
+					ele.addEventListener('mouseenter', ratonDentro);
+					ele.addEventListener('mouseout', ratonFuera);
+					ele.addEventListener('click', clickCaja);
+				}
+				crearSalto();
+			}
+		}
+
+		//función que crea un salto de línea
+		function crearSalto(height) {
+			console.log('paso por crearSalto'); // div vacio sin dimensiones con clear left
+			var ele = document.createElement('div'); // crear nodo
+			ele.style.clear = 'left'; // css posicionamiento
+			document.body.appendChild(ele);	// añadir nodo al dom 
+		}
+
+		//función que crea los nodos (se le debe pasar el tipo de elemento que se pretende crear)
+		function crearCaja(tipo) {
+			console.log('paso por crearCaja');
+			var ele = document.createElement(tipo); // crea el objeto
+			document.body.appendChild(ele); // se añade el objeto al DOM como hijo de <body>
+			return ele;
+		}
+
+		//función que dinamiza los elementos cuando el ratón pasa por encima de ellos
+		function ratonDentro(){
+			this.style.backgroundColor = 'rgb(0, 255, 0)'; //cambiamos el color del elemento sobre el que tenemos el raton
+
+			//guardamos la id del elementos sobre el que tenemos el raton como coordenadas
+			var coordX_eje = this.id.charAt(this.id.length - 1);
+			var coordY_eje = this.id.charAt(this.id.length - 2);
+
+			var cajas = document.getElementsByTagName('div'); //guardamos los elementos <div> en un array
+			
+			for(var i = 0; i < cajas.length; i++){
+				//volvemos a guardar la id como coordenadas, esta vez del resto de elementos
+				coordX = cajas[i].id.charAt(cajas[i].id.length - 1);
+				coordY = cajas[i].id.charAt(cajas[i].id.length - 2);
+				// console.log(coordX + ' -- ' + coordX_eje + ' // ' + coordY + ' -- ' + coordY_eje);
+
+				cajas[i].style.backgroundColor = 'black'; //cambiamos el color de los elementos a negro
+				cajas[i].innerHTML = ''; //vaciamos su innerHTML
+				
+				//si cualquiera de las coordenadas de estos elementos coincide con alguna de las coordenadas del elemento eje, se cambia su color a verde.
+				if(coordX == coordX_eje || coordY == coordY_eje){ 
+					cajas[i].style.backgroundColor = 'rgb(0, 255, 0)';
+				}
+			}
+
+			//mostramos las coordenadas con un nuevo nodo <a>
+			if(document.getElementById('coords')){ //si ya existe el elemento, cambiamos su innerHTML
+				var a = document.getElementById('coords');
+				a.innerHTML = 'X: ' + coordX_eje + ' // Y: ' + coordY_eje;
+			} else {
+				var a = crearCaja('a'); //si no existe el elemento, lo creamos
+				a.id = 'coords';
+				a.innerHTML = 'X: ' + coordX_eje + ' // Y: ' + coordY_eje;
+				a.style.fontWeight = 'bold';
+				a.style.fontFamily = 'Arial';
+				a.style.border = '1px solid black';
+				a.style.backgroundColor = 'yellow';
+			}
+		}
+
+		//función que dinamiza los elementos cuando el ratón está fuera de ellos
+		function ratonFuera(){
+			//guardamos la id del elemento principal como coordenadas (recordar: el ratón está fuera de dicho elemento)
+			var coordX_eje = this.id.charAt(this.id.length - 1);
+			var coordY_eje = this.id.charAt(this.id.length - 2);
+
+			//recuperamos todos los elemntos <div> y los guardamos en un array
+			var cajas = document.getElementsByTagName('div');
+			
+			for(var i = 0; i < cajas.length; i++){
+				//guardamos las coordenadas del resto de elementos
+				coordX = cajas[i].id.charAt(cajas[i].id.length - 1);
+				coordY = cajas[i].id.charAt(cajas[i].id.length - 2);
+				// console.log(coordX + ' -- ' + coordX_eje + ' //	' + coordY + ' -- ' + coordY_eje);
+
+				//si las coordenadas coinciden con cualquiera de las coordenadas principales, se cambia el color a negro y vaciamos su innerHTML
+				if(coordX == coordX_eje || coordY == coordY_eje){
+					cajas[i].style.backgroundColor = 'black';
+					cajas[i].innerHTML = '';
+				}
+			}
+		}
+
+		//función que se ejecuta al hacer click en cualquiera de las cajas
+		function clickCaja() {
+			console.log('paso por clickCaja');
+			var cajas = document.getElementsByTagName('div'); //recuperamos todos los <div> y los guardamos
+			
+				//recorremos los <div> y les cambiamos el color a todos de forma aleatoria llamando a la función 'numRandom()'
+				for(var i = 0; i < cajas.length; i++){
+				cajas[i].style.backgroundColor = 'rgb(' + numRandom() + ', ' + numRandom() + ', ' + numRandom() + ')';
+			}
+
+			this.style.backgroundColor = 'white'; //finalmente, cambiamos el color a BLANCO para la caja en la que hacemos click
+
+			//guardamos todos los elementos en distintas variables.
+			var cajas = document.getElementsByTagName('div');
+			var coords = document.getElementById('coords');
+
+			//si hacemos click en 'caja88' se muestra una alerta, todos los elementos se ocultan y <body> cambia a negro
+			if(this.id == 'caja88'){
+				alert('A dormir.');
+				for(var j = 0; j < cajas.length; j++){
+					cajas[j].style.display = 'none';
+				}
+				coords.style.display = 'none';
+				document.body.style.backgroundColor = 'black';
+			} else if(this.id == 'caja11'){	//si hacemos click en 'caja11', los cuadrados pasan a ser círculos (borde redondeado)
+				for(var k = 0; k < cajas.length; k++){
+					cajas[k].style.borderRadius = '60px';
+				}
+			}
+		}
+
+		//función que devuelve un número random dentro de un rango
+		function numRandom(){
+			// console.log('paso por numRandom');
+			return Math.floor(Math.random() * (255 - 0) + 0);
+		}
+
+		window.onload = iniciar; // sin parentesis , al final del head , inicio del js al carga la pagina
+	</script>
+
+</head>
+
+<body>
+</body>
+
+</html>

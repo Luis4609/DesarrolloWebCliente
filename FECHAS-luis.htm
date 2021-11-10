@@ -1,0 +1,251 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>fechas - alfredoPuerta DW2E</title>
+
+        <style>
+            *{margin: 0}
+        </style>
+
+        <script>
+            //array que almacenará las diferentes fechas generadas.
+            var fechas = [];
+
+            function iniciar() {
+                mostrarFechaUsuario();
+                almacenarFechas();
+                ordenarFechas();
+                diferenciarFechas();
+            }
+
+            //función que recoje la fecha introducida por el usuario y la devuelve en un nuevo nodo <p>
+            function mostrarFechaUsuario() {
+                numCajas = 2;
+
+                var apartado = crearNodo('h2', document.body, 'apartado1');
+                apartado.innerHTML = 'Ejemplo de control input type="date"';
+
+                for (let i = 1; i <= numCajas; i++) {
+                    var caja = crearNodo('div', document.body, 'caja0' + i);
+                    darEstilos(caja, 100, 30, 'center');
+                }
+
+                var caja1 = document.getElementById('caja01');
+                var caja2 = document.getElementById('caja02');
+
+                var fechaUsuario = crearNodoInput('date', caja1, 'date');
+                var textoFecha = crearNodo('p', caja2, 'date-result');
+                textoFecha.innerHTML = 'fecha';
+                fechaUsuario.addEventListener('change', function () {
+                    var fecha = new Date(fechaUsuario.value);
+                    textoFecha.innerHTML = fecha.toLocaleDateString();
+                });
+
+                /*Otra forma sin usar Date*/
+                // fechaUsuario.addEventListener('change', function(){
+                //     var fechaResult = fechaUsuario.value.split('-').reverse().join('/');
+                //     textoFecha.innerHTML = fechaResult;
+                // });
+
+                crearSalto();
+            }
+
+            //función que genera 24 fechas de 2019 y las almacena en un array
+            function almacenarFechas() {
+                var apartado = crearNodo('h2', document.body, 'apartado2');
+                apartado.innerHTML = '<br/>Listado 24 fechas a 6 columnas';
+                
+                var fecha1 = new Date(2019, 0, 1);
+                var fecha2 = new Date(2019, 11, 31);
+                
+                let numLlamada = 1; //para diferenciar las cajas con distintas clases, dependiendo de cada apartado
+                crearTabla(numLlamada, 100, 20, 'right');
+
+                var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+                for(let i = 0; i < cajas.length; i++){
+                    var fecha = randomDate(fecha1, fecha2);
+                    fechas.push(fecha);
+                    cajas[i].innerHTML = fecha.toLocaleDateString();
+                }
+            }
+
+            //función que utiliza el array de fechas generadas anteriormente y lo ordena de mayor a menor y viceversa. 
+            function ordenarFechas(){
+                /*********ORDENAMOS DE MENOR A MAYOR*********/
+                var apartado_menorMayor = crearNodo('h2', document.body, 'aparatado');
+                apartado_menorMayor.innerHTML = '<br/>De menor a mayor';
+
+                var fechas_menorMayor = fechas.sort(function(a, b){
+                    return a - b;
+                });
+
+                let numLlamada = 2;
+                crearTabla(numLlamada, 100, 20, 'right');
+                var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+                // console.log(cajas);
+
+                for(let i = 0; i < cajas.length; i++){
+                    cajas[i].innerHTML = fechas_menorMayor[i].toLocaleDateString().replace(/[/]/gi, '-');
+                }
+
+                /*********ORDENAMOS DE MAYOR A MENOR*********/
+                var apartado_mayorMenor = crearNodo('h2', document.body, 'aparatado');
+                apartado_mayorMenor.innerHTML = '<br/>De mayor a menor';
+
+                numLlamada = 3
+                crearTabla(numLlamada, 100, 20, 'right');
+                var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+
+                var fechas_mayorMenor = fechas_menorMayor.reverse();
+
+                for(let i = 0; i < cajas.length; i++){
+                    cajas[i].innerHTML = fechas_mayorMenor[i].toLocaleDateString().replace(/[/]/gi, '-');
+                }
+            }
+
+            //función que muestra las fechas ordenadas y con la diferencia de días entre las que van seguidas.
+            //llama también a funciones para operar con fechas.
+            function diferenciarFechas(){
+                /*DIFERENCIAS EN DIAS CON LA SIGUIENTE FECHA, A DOS CARACTERES SIN DECIMALES*/
+                var apartado = crearNodo('h2', document.body, 'aparatado');
+                apartado.innerHTML = '<br/>Diferencias en dias con la siguiente fecha, a dos caracteres sin decimales';
+
+                let numLlamada = 4;
+                crearTabla(numLlamada, 100, 20, 'right');
+
+                var cajas = document.getElementsByClassName('cajas-fechas' + numLlamada);
+                var fechasOrdenadas = fechas.sort(function(a, b){
+                    return a - b;
+                });
+                var fechasOrdenadasDias = [];
+
+                for(let i = 0; i < cajas.length; i++){
+                    if(i + 1 < cajas.length){
+                        var auxDif = Math.abs(fechasOrdenadas[i + 1].getTime() - fechasOrdenadas[i].getTime());
+                        var dif = (auxDif / (1000 * 3600 * 24)).toFixed(0);
+                        if(dif.toString().length == 1){dif = '0' + dif;}
+                        fechasOrdenadasDias.push(fechasOrdenadas[i].toLocaleDateString() + ':' + dif);
+                        cajas[i].innerHTML = fechasOrdenadasDias[i].replace(/[/]/gi, '-');
+                    }
+                }
+                cajas[cajas.length - 1].style.display = 'none';
+
+                diferenciarMayorMenorDia(fechasOrdenadas);
+                diferenciarFechasAltaBaja(fechasOrdenadasDias);
+                mostrarDiasEntreFechas(fechasOrdenadas);
+            }
+
+            //función que muestra la mayor y la menor diferencia entre días
+            function diferenciarMayorMenorDia(arr){
+                /*MAYOR Y MENOR DIFERENCIA ENTRE DIAS*/
+                var apartado = crearNodo('h2', document.body, 'aparatado');
+                apartado.innerHTML = '<br/>Mayor y menor diferencia entre dias'
+                
+                var caja = crearNodo('div', document.body, '', 'cajas-fechas5');
+                darEstilos(caja, 300, 20);
+                var diferenciaDias = [], max = 0, min = 999;
+
+                for(let i = 0; i < arr.length; i++){
+                    var dif = parseInt(arr[i].toString().split(':')[1]);
+                    if(dif > max){max = dif;}
+                    if(dif < min){min = dif;}
+                }
+                
+                caja.innerHTML = 'mayor:' + max + ' y menor:' + min;
+                crearSalto();
+            }
+
+            //función que muestra la mayor y la menor fecha
+            function diferenciarFechasAltaBaja(arr){
+                var apartado = crearNodo('h2', document.body, 'aparatado');
+                apartado.innerHTML = '<br/>Fecha mas alta y mas baja';
+
+                var caja = crearNodo('div', document.body, '', 'cajas-fechas5');
+                darEstilos(caja, 300, 20);
+                caja.innerHTML = 'baja:' + arr[0].split(':')[0].replace(/[/]/gi, '-') + ' alta: ' + arr[arr.length - 2].split(':')[0].replace(/[/]/gi, '-');
+                crearSalto();
+            }
+
+            //función que muestra la diferencia total de días entre la fecha mayor y la menor.
+            function mostrarDiasEntreFechas(arr){
+                var apartado = crearNodo('h2', document.body, 'aparatado');
+                apartado.innerHTML = '<br/>Dias entre la fecha mas alta y mas baja';
+
+                var caja = crearNodo('div', document.body, '', 'cajas-fechas5');
+                darEstilos(caja, 300, 20, 'left');
+
+                var fecha1 = arr[0];
+                var fecha2 = arr[arr.length - 2];
+
+                var auxDif = Math.abs(fecha1.getTime() - fecha2.getTime());
+                var dif = (auxDif / (1000 * 3600 * 24)).toFixed(0);
+
+                caja.innerHTML = 'dias entre fechas:' + dif;
+                crearSalto();
+            }
+
+            //función que crea las tablas donde se muestran las fechas.
+            function crearTabla(num, ancho, alto, alineado){
+                for(let j = 0; j < 4; j++){
+                    for(let i = 0; i < 6; i++){
+                        var caja = crearNodo('div', document.body, '', 'cajas-fechas' + num);
+                        darEstilos(caja, ancho, alto, alineado);
+                    }
+                    crearSalto();
+                }
+            }
+
+            //función que da estilos a las tablas
+            function darEstilos(caja, ancho, alto, alineado){
+                caja.style.width = ancho + 'px';
+                caja.style.height = alto + 'px';
+                caja.style.border = '1px solid #CCC';
+                caja.style.display = 'flex';
+                caja.style.float = 'left';
+                caja.style.justifyContent = alineado;
+                caja.style.alignItems = 'center';
+            }
+
+            //función que genera una fecha al azar en un rango introducido.
+            function randomDate(start, end) {
+                // console.log('paso por randomdate');
+                return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            }
+
+            //función para crear nodos indicando padre, id y clase.
+            function crearNodo(tipo, padre, id, clase) {
+                var nodo = document.createElement(tipo);
+                if(id != ''){nodo.id = id;}
+                if(clase != ''){nodo.className = clase;}
+                padre.appendChild(nodo);
+                return nodo;
+            }
+
+            //función para crear nodos específicos con su tipo deseado.
+            function crearNodoInput(tipo, padre, id, clase) {
+                var nodo = document.createElement('input');
+                nodo.setAttribute('type', tipo);
+                if(id != ''){nodo.id = id;}
+                if(clase != ''){nodo.className = clase;}
+                padre.appendChild(nodo);
+                return nodo;
+            }
+
+            //función para crear saltos en las diferentes tablas de representación de fechas.
+            function crearSalto() {
+                // div vacio sin dimensiones con clear left
+                var ele = document.createElement('div'); // crear nodo
+                ele.style.clear = 'left'; // css posicionamiento
+                document.body.appendChild(ele);	// añadir nodo al dom 
+            }
+
+            window.onload = iniciar;
+        </script>
+    </head>
+
+    <body>
+    </body>
+</html>
