@@ -1,0 +1,14 @@
+.container {
+  width: 600px;
+  height: 600px;
+  background-color: darkgrey;
+  touch-action: none;
+}
+.box {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  will-change: transform, left, top;
+  contain: layout;
+}

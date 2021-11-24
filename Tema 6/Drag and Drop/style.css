@@ -1,0 +1,25 @@
+*{
+  margin: 0;
+}
+.container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 1em;
+  width: 90%;
+  height: 600px;
+  border: 1px solid black;
+}
+
+div {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  border: 1px solid #aaaaaa;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+}

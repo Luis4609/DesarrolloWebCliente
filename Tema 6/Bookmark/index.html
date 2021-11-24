@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="titulo">
+        <h4>Bookmark</h4>
+    </div>
+    <div class="container" id=""  ondragover="allowDrop(event)" ondragstart="drag(event)">
+        <div class="bookmark" id="drag1"  ondragover="allowDrop(event)" ondragstart="drag(event)"
+            draggable="true">Pepe</div>
+        <div class="bookmark" id="drag"  ondragover="allowDrop(event)" ondragstart="drag(event)"
+            draggable="true">Hola</div>
+        <div class="bookmark" id="remove" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"
+            draggable="true">
+            <p class="texto">Remove</p>
+        </div>
+    </div>
+</body>
+
+</html>

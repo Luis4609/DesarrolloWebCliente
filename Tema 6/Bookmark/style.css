@@ -1,0 +1,32 @@
+.container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border: 1px solid black;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    position: relative;
+}
+
+.bookmark{
+    width: 90%;
+    border: 1px solid blue;
+    height: 4em;
+    margin: 10px;
+    padding: 10px;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+}
+#remove{
+    border: 2px solid red;
+    position: relative;   
+}
+.texto{
+    margin-left: auto;
+    margin-right: auto;
+}

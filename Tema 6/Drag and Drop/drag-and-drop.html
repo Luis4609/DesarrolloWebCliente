@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag and drop example</title>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <h3>Drag the W3Schools image into the rectangle:</h3>
+    </header>
+    <div class="container">
+        
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)" draggable="true">
+
+        </div>
+        <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)" draggable="true">
+        </div>
+        <img id="drag1" src="img/pexels-flickr-155309.jpg" draggable="true" ondragstart="drag(event)"/>
+    </div>
+</body>
+
+</html>
