@@ -11,7 +11,6 @@ generateBtn.addEventListener("click", () => {
   for (let i = 0; i < 6; i++) {
     randomColor = randomColor + characters[Math.floor(Math.random() * 16)];
   }
-
   currentColor.innerText = "#" + randomColor;
   bodyElem.style.backgroundColor = "#" + randomColor;
 });
