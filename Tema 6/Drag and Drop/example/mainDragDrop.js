@@ -27,9 +27,9 @@ const clearContentContainer = (parent) => {
 
 const main = () => {
     //Variables para la descripcion Contenido
-    const inputTitle = document.getElementById("tagTitle");
-    const inputUrl = document.getElementById("tagUrl");
-    const inputDescription = document.getElementById("tagDescription");
+    const title = document.getElementById("title");
+    const url = document.getElementById("url");
+    const description = document.getElementById("description");
 
     //Contadores para ID etiquetas y bookmarks
     let counterEtiquetas = 0;
@@ -67,23 +67,23 @@ const main = () => {
             	Add the onclick funcitonality to show the content of the tag
             */
             elemento.onclick = () => {
-                inputTitle.value = elemento.contenido["title"];
-                inputUrl.value = elemento.contenido["url"];
-                inputDescription.value = elemento.contenido["description"];
+                title.value = elemento.contenido["title"];
+                url.value = elemento.contenido["url"];
+                description.value = elemento.contenido["description"];
 
                 /*
                 	Add the funcitonality to change the content of the tag
                 */
-                inputTitle.onchange = () => {
-                    elemento.contenido["title"] = inputTitle.value;
+                title.onchange = () => {
+                    elemento.contenido["title"] = title.value;
                 };
 
-                inputUrl.onchange = () => {
-                    elemento.contenido["url"] = inputUrl.value;
+                url.onchange = () => {
+                    elemento.contenido["url"] = url.value;
                 };
 
-                inputDescription.onchange = () => {
-                    elemento.contenido["description"] = inputDescription.value;
+                description.onchange = () => {
+                    elemento.contenido["description"] = description.value;
                 };
             };
         } else if (nombreContenedorPadre == "BOOKMARKS") {
@@ -117,23 +117,23 @@ const main = () => {
                     elemento.etiquetas.push(duplicatedEle);
 
                     duplicatedEle.onclick = () => {
-                        inputTitle.value = this.contenido["title"];
-                        inputUrl.value = this.contenido["url"];
-                        inputDescription.value = this.contenido["description"];
+                        title.value = this.contenido["title"];
+                        url.value = this.contenido["url"];
+                        description.value = this.contenido["description"];
 
                         /*
                         	Add the funcitonality to change the content of the tag
                         */
-                        inputTitle.onchange = () => {
-                            this.contenido["title"] = inputTitle.value;
+                        title.onchange = () => {
+                            this.contenido["title"] = title.value;
                         };
 
-                        inputUrl.onchange = () => {
-                            this.contenido["url"] = inputUrl.value;
+                        url.onchange = () => {
+                            this.contenido["url"] = url.value;
                         };
 
-                        inputDescription.onchange = () => {
-                            this.contenido["description"] = inputDescription.value;
+                        description.onchange = () => {
+                            this.contenido["description"] = description.value;
                         };
                     };
                 }
@@ -162,11 +162,11 @@ const main = () => {
         });
     }
 
-    const agregarEtiqueta = document.getElementById("etiquetasAgregar");
-    agregarEtiqueta.addEventListener("click", agregarHijos);
+    const addEtiquetas = document.getElementById("addEtiquetas");
+    addEtiquetas.addEventListener("click", agregarHijos);
 
-    const agregarBookmark = document.getElementById("bookmarksAgregar");
-    agregarBookmark.addEventListener("click", agregarHijos);
+    const addBookmarks = document.getElementById("addBookmarks");
+    addBookmarks.addEventListener("click", agregarHijos);
 }
 
 window.onload = main;

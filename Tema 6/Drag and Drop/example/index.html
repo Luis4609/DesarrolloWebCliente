@@ -11,41 +11,75 @@
 </head>
 
 <body>
-    <!-- Bookmarks container -->
-    <div class="contenedor-principal" id="bookmarks">
-        <div class="azul contenedor-child">BOOKMARKS</div>
-        <div id="bookmarksDrop" class="drop contenedor-child" ondrop="drop(event)" ondragover="allowDrop(event)">[drop]
+    <!-- Container for BOOKMARKS -->
+
+    <div class="container-item" id="bookmarks">
+        <div class="container-child title">BOOKMARKS</div>
+        <div id="bookmarksDrop" class="drop contenedor-child" ondrop="drop(event)" ondragover="allowDrop(event)">
+            Borrar
         </div>
-        <div id="bookmarksAgregar" class="verde contenedor-child">[+]</div>
+        <div id="addBookmarks" class="add contenedor-child">Add</div>
     </div>
-    <!-- Content container -->
-    <div class="contenedor-principal contenido" id="contenido">
-        <div class="azul">CONTENIDO</div>
-        <label>Titulo</label>
-        <input id="tagTitle" type="text" placeholder="titulo">
-        <label>Url</label>
-        <input id="tagUrl" type="text" placeholder="url">
-        <label>Descripcion</label>
-        <input id="tagDescription" type="text" placeholder="descripcion">
-        <div id="contenidoDrop" class="drop" ondrop="drop(event)" ondragover="allowDrop(event)">[drop]</div>
+    <!-- Container for CONTENIDO -->
+    <div class="container-item contenido" id="contenido">
+        <div class="container-child title">CONTENIDO</div>
+        <label>Título</label>
+        <input id="title" type="text">
+        <label>URL</label>
+        <input id="url" type="text">
+        <label>Descripción</label>
+        <input id="description" type="text">
+        <div class="drop" ondrop="drop(event)" ondragover="allowDrop(event)">Borrar</div>
     </div>
-    <!-- Tags container -->
-    <div class="contenedor-principal" id="etiquetas">
-        <div class="azul contenedor-child">ETIQUETAS</div>
-        <div id="etiquetasDrop" class="drop contenedor-child" ondrop="drop(event)" ondragover="allowDrop(event)">[drop]
+    <!-- Container for ETIQUETAS -->
+    <div class="container-item" id="etiquetas">
+        <div class="container-child title">ETIQUETAS</div>
+        <div class="drop contenedor-child" ondrop="drop(event)" ondragover="allowDrop(event)">
+            Borrar
         </div>
-        <div id="etiquetasAgregar" class="verde contenedor-child">[+]</div>
+        <div id="addEtiquetas" class="add contenedor-child">Add</div>
     </div>
+
 </body>
 
 </html>
 
 
-<!-- function crearNodo(tipo, padre, id, clase, inner) {
-    var nodo = document.createElement(tipo);
-    if (id != '') { nodo.id = id; }
-    if (clase != '') { nodo.className = clase; }
-    if (inner != '') { nodo.innerHTML = inner; }
-    padre.appendChild(nodo);
-    return nodo;
-} -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container" id="bookmarks">
+        <div class="title">Bookmarks</div>
+        <div class="delete drop contenedor-child" id="bookmarksDrop" ondrop="drop(event)" ondragover="allowDrop(event)">Borrar</div>
+        <div class="add">Add</div>
+    </div>
+    <div class="container" id="contenido">
+        <div class="title">Contenido</div>
+        <label>Título</label>
+        <input id="tagTitle" type="text" placeholder="Título">
+        <label>Url</label>
+        <input id="tagUrl" type="text" placeholder="URL">
+        <label>Descripción</label>
+        <input id="tagDescription" type="text" placeholder="Descripción">
+        <div id="contenidoDrop" class="drop" ondrop="drop(event)" ondragover="allowDrop(event)">Borrar</div>
+    </div>
+    <div class="container" id="etiquetas">
+        <div class="title">Etiquetas</div>
+        <div class="delete" id="etiquetasDrop" class="drop contenedor-child" ondrop="drop(event)" ondragover="allowDrop(event)">Borrar</div>
+        <div class="add" id="etiquetasAgregar">Add</div>
+    </div>
+
+    <script src="mainDragDrop.js"></script>
+</body>
+
+</html> -->

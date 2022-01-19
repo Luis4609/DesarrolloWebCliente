@@ -1,8 +1,4 @@
-body {
-    display: inline-block;
-}
-
-.contenedor-principal {
+.container-item {
     border: 1px solid black;
     border-radius: 5px;
     width: 300px;
@@ -11,7 +7,7 @@ body {
     margin: 5px;
 }
 
-.contenedor-child {
+.container-child {
     text-align: center;
     padding: 5px;
     margin: 5px;
@@ -26,21 +22,21 @@ body {
 .contenido div {
     text-align: center;
     padding: 5px;
-    margin: 2px;
+    margin: px;
 }
 
-.verde {
-    background-color: green;
+.add {
+    background-color: rgb(23, 230, 23);
 }
 
-.azul {
-    background-color: aliceblue;
+.title {
+    background-color: rgb(28, 141, 240);
 }
 
 .crema {
-    background-color: bisque;
+    background-color: rgb(216, 245, 51);
 }
 
 .drop {
-    background-color: darkturquoise;
+    background-color: rgb(228, 52, 29);
 }
