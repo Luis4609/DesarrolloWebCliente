@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Drag and Drop</title>
+</head>
+
+
+<script>
+    var arrBookMarks = [];
+    var arrLabels = ['label 1', 'label 2', 'label 3', 'label 4', 'label 5'];
+    var bookActual = "0";
+
+    function inicio() {
+
+        arrBookMarks.push(crearBookMark());
+        arrBookMarks.push(crearBookMark());
+        arrBookMarks.push(crearBookMark());
+
+        var cont = crearContenedorBookMarks();
+        crearContenidoBookMarks(cont);
+
+        var cont = crearContenedorContenido();
+        crearContenidoContenido(0);
+
+        crearContenedorEtiquetas();
+        crearContenidoEtiquetas();
+
+    }
+
+    function crearBookMark() {
+        var BookMarks = {
+            'titulo': "",
+            'url': "",
+            'descripcion': "",
+            'labels': ["label 3", "label 4", "label 5", "label 6", "label 7"]
+        };
+
+        return BookMarks;
+
+    }
+
+    function crearContenedorBookMarks() {
+        var ele = document.createElement('div');
+        document.body.appendChild(ele);
+        ele.id = "BOOKSMARKS";
+        ele.style.border = '1px solid black';
+        ele.style.marginRight = '5px';
+        ele.style.float = 'left';
+
+        return ele;
+    }
+
+    function crearContenedorContenido() {
+        var ele = document.createElement('div');
+        document.body.appendChild(ele);
+        ele.id = "CONTENIDO";
+        ele.style.border = '1px solid black';
+        ele.style.marginRight = '5px';
+        ele.style.float = 'left';
+        ele.style.position = "relative";
+
+        return ele;
+    }
+
+    function crearContenidoBookMarks(cont) {
+
+        var label = document.createElement('div');
+        cont.appendChild(label);
+        label.style.width = '230px';
+        label.style.backgroundColor = "steelblue";
+        label.innerHTML = "BOOKSMARKS";
+        label.style.padding = "2px";
+        label.style.margin = "2px";
+
+        var boton = document.createElement('div');
+        cont.appendChild(boton);
+        boton.style.width = '230px';
+        boton.style.backgroundColor = "olive";
+        boton.innerHTML = "añadir +";
+        boton.style.padding = "2px";
+        boton.style.margin = "2px";
+        boton.style.cursor = "pointer";
+
+        boton.addEventListener('click', addBookMarks);
+
+        for (let i = 0; i < arrBookMarks.length; i++) {
+            var ele = document.createElement('div');
+            cont.appendChild(ele);
+            ele.id = "book " + i;
+            ele.className = "bookm";
+            ele.style.width = '230px';
+            ele.style.backgroundColor = "yellow";
+            ele.innerHTML = "bookm " + (i + 1);
+            ele.style.padding = "2px";
+            ele.style.margin = "2px";
+            ele.style.cursor = "pointer";
+            ele.draggable = "true";
+            ele.addEventListener('click', mostrarContenidoBooksMarks);
+
+            ele.ondragstart = drag;
+        }
+
+        var borrar = document.createElement('div');
+        cont.appendChild(borrar);
+        borrar.style.width = '110px';
+        borrar.innerHTML = "Borrar";
+        borrar.style.padding = "2px";
+        borrar.style.margin = "2px";
+
+        borrar.ondrop = drop;
+        borrar.ondragover = allowDrop;
+
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+
+        if (data.split(" ")[0] == "book") {
+            var nodo = document.getElementById(data);
+            nodo.parentNode.removeChild(nodo);
+            var i = data.split(" ")[1];
+            arrBookMarks.splice(i, 1);
+            var pa = document.getElementById("BOOKSMARKS");
+            pa.innerHTML = "";
+            crearContenidoBookMarks(pa);
+            var co = document.getElementById("CONTENIDO");
+            co.innerHTML = "";
+            crearContenidoContenido(0);
+        }
+    }
+
+    function crearContenidoContenido(index) {
+        var cont = document.getElementById("CONTENIDO");
+
+
+        var label = document.createElement('div');
+        cont.appendChild(label);
+        label.style.width = '230px';
+        label.style.backgroundColor = "steelblue";
+        label.innerHTML = "CONTENIDO";
+        label.style.padding = "2px";
+        label.style.margin = "2px";
+
+        var label = document.createElement('spam');
+        cont.appendChild(label);
+        label.style.padding = "2px";
+        label.style.margin = "2px";
+        label.innerHTML = "título";
+
+        var input = document.createElement('input');
+        cont.appendChild(input);
+        input.style.right = "-34px";
+        input.style.width = "130px";
+        input.style.position = "relative";
+        input.id = "inputTitulo";
+
+        input.value = arrBookMarks[index].titulo;
+        input.addEventListener('change', setTitulo);
+
+
+        var separador = document.createElement('br');
+        cont.appendChild(separador);
+
+
+        var label = document.createElement('spam');
+        cont.appendChild(label);
+        label.style.padding = "2px";
+        label.style.margin = "2px";
+        label.innerHTML = "url";
+
+        var input = document.createElement('input');
+        cont.appendChild(input);
+        input.style.width = "130px";
+        input.style.right = "-50px";
+        input.style.position = "relative";
+        input.id = "inputURL";
+
+        input.value = arrBookMarks[index].url;
+        input.addEventListener('change', setURL);
+
+        var separador = document.createElement('br');
+        cont.appendChild(separador);
+
+        var label = document.createElement('spam');
+        cont.appendChild(label);
+        label.style.padding = "2px";
+        label.style.margin = "2px";
+        label.innerHTML = "descrip";
+
+        var input = document.createElement('input');
+        cont.appendChild(input);
+        input.style.width = "130px";
+        input.style.right = "-22px";
+        input.style.position = "relative";
+        input.id = "inputDescripcion";
+
+        input.value = arrBookMarks[index].descripcion;
+        input.addEventListener('change', setDescripcion);
+
+        var separador = document.createElement('br');
+        cont.appendChild(separador);
+
+        for (let i = 0; i < arrBookMarks[bookActual].labels.length; i++) {
+            var ele = document.createElement('div');
+            cont.appendChild(ele);
+            ele.id = "label " + i;
+            ele.style.width = '230px';
+            ele.style.backgroundColor = "yellow";
+            ele.innerHTML = arrBookMarks[bookActual].labels[i];
+            ele.style.padding = "2px";
+            ele.style.margin = "2px";
+            ele.style.cursor = "pointer";
+            ele.draggable = "true";
+
+            ele.ondragstart = drag;
+        }
+
+        var borrar = document.createElement('div');
+        cont.appendChild(borrar);
+        borrar.style.width = '110px';
+        borrar.innerHTML = "Borrar";
+        borrar.style.padding = "2px";
+        borrar.style.margin = "2px";
+        borrar.style.float = "left";
+        borrar.style.textAlign = "center";
+
+        borrar.ondrop = dropBorrarContenido;
+        borrar.ondragover = allowDrop;
+
+        var anadir = document.createElement('div');
+        cont.appendChild(anadir);
+        anadir.style.width = '110px';
+        anadir.innerHTML = "Añadir";
+        anadir.style.padding = "2px";
+        anadir.style.margin = "2px";
+        anadir.style.float = "left";
+        anadir.style.textAlign = "center";
+
+        anadir.ondrop = dropAnadirContenido;
+        anadir.ondragover = allowDrop;
+
+    }
+
+    function dropBorrarContenido(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+
+        if (data.split(" ")[0] == "label") {
+            var nodo = document.getElementById(data);
+            nodo.parentNode.removeChild(nodo);
+            var i = data.split(" ")[1];
+            arrBookMarks[bookActual].labels.splice(i, 1)
+        }
+
+
+    }
+
+    function dropAnadirContenido(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+
+        if (data.split(" ")[0] == "lab-") {
+            var nodo = document.getElementById(data).innerHTML;
+            arrBookMarks[bookActual].labels.push(nodo);
+            document.getElementById("CONTENIDO").innerHTML = "";
+            var cont = crearContenedorContenido();
+            crearContenidoContenido(bookActual);
+        }
+    }
+
+    function addBookMarks() {
+
+        var padre = document.getElementById("BOOKSMARKS");
+        padre.innerHTML = "";
+
+        arrBookMarks.push(crearBookMark());
+
+        crearContenidoBookMarks(padre);
+    }
+
+    function mostrarContenidoBooksMarks() {
+
+        bookActual = this.id.split(" ")[1];
+
+        document.getElementById("CONTENIDO").innerHTML = "";
+        crearContenidoContenido(bookActual);
+
+    }
+
+    function setTitulo() {
+        var titulo = document.getElementById("inputTitulo").value;
+        arrBookMarks[bookActual].titulo = titulo;
+    }
+
+    function setURL() {
+        var url = document.getElementById("inputURL").value;
+        arrBookMarks[bookActual].url = url;
+    }
+
+    function setDescripcion() {
+        var descripcion = document.getElementById("inputDescripcion").value;
+        arrBookMarks[bookActual].descripcion = descripcion;
+    }
+
+    function crearContenedorEtiquetas() {
+        var ele = document.createElement('div');
+        document.body.appendChild(ele);
+        ele.id = "ETIQUETAS";
+        ele.style.border = '1px solid black';
+        ele.style.marginRight = '5px';
+        ele.style.float = 'left';
+
+        return ele;
+    }
+
+    function crearContenidoEtiquetas() {
+        var cont = document.getElementById("ETIQUETAS");
+        var label = document.createElement('div');
+        cont.appendChild(label);
+        label.style.width = '230px';
+        label.style.backgroundColor = "steelblue";
+        label.innerHTML = "ETIQUETAS";
+        label.style.padding = "2px";
+        label.style.margin = "2px";
+
+        var boton = document.createElement('div');
+        cont.appendChild(boton);
+        boton.style.width = '230px';
+        boton.style.backgroundColor = "olive";
+        boton.innerHTML = "añadir +";
+        boton.style.padding = "2px";
+        boton.style.margin = "2px";
+        boton.style.cursor = "pointer";
+
+        boton.addEventListener('click', addLabel);
+
+        var j = 0;
+        for (let lab of arrLabels) {
+            var ele = document.createElement('div');
+            cont.appendChild(ele);
+            ele.id = "lab- " + j;
+            ele.style.width = '230px';
+            ele.style.backgroundColor = "yellow";
+            ele.innerHTML = lab;
+            ele.style.padding = "2px";
+            ele.style.margin = "2px";
+            ele.style.cursor = "pointer";
+            ele.draggable = "true";
+            ele.ondragstart = drag;
+            j++;
+        }
+
+        var borrar = document.createElement('div');
+        cont.appendChild(borrar);
+        borrar.id = "borrarEtiqueta";
+        borrar.style.width = '110px';
+        borrar.innerHTML = "Borrar";
+        borrar.style.padding = "2px";
+        borrar.style.margin = "2px";
+
+        borrar.ondrop = dropEtiqueta;
+        borrar.ondragover = allowDropEtiqueta;
+
+
+    }
+
+    function dropEtiqueta(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+
+        if (data.split(" ")[0] == "lab-") {
+            var nodo = document.getElementById(data);
+            nodo.parentNode.removeChild(nodo);
+            var i = data.split(" ")[1];
+            arrLabels.splice(i, 1);
+        }
+    }
+
+    function allowDropEtiqueta(ev) {
+        ev.preventDefault();
+    }
+
+    function addLabel() {
+        var padre = document.getElementById("ETIQUETAS");
+        padre.innerHTML = "";
+
+        arrLabels.push("label " + (arrLabels.length + 1));
+        crearContenidoEtiquetas();
+    }
+
+    window.onload = inicio;
+</script>
+
+<body>
+
+</body>
+
+</html>
