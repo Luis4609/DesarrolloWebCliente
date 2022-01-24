@@ -1,7 +1,7 @@
 const request = new XMLHttpRequest();
 request.open(
   "GET",
-  "https://api.generated.photos/api/v1/faces?api_key=hTpFjVfgA-mt6-eXPD0FIg",
+  "https://api.generated.photos/api/v1/faces?api_key=9WfidX1--v7zbsrcK8PneA",
   true
 ); 
 
@@ -19,7 +19,7 @@ request.onload = function () {
       tarjeta.setAttribute("id", datos.id);
 
       const datosApi = document.createElement("img");
-      datosApi.setAttribute("src", datos.faces[0].url[1][64]);
+      datosApi.setAttribute("src", datos.faces[0].urls[2][64]);
 
       // Agregamos la tarjeta
       contenedor.appendChild(tarjeta);
