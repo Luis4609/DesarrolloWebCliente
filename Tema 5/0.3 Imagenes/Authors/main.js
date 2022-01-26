@@ -11,13 +11,16 @@ function createNode(element) {
         // Código para la tecla ENTER
         console.log("Oprimiste la tecla ENTER o TAB");
         this.style.border = "5px solid red";
+        this.isSelected = true;
       }
-      
       // TAB detectado
       if (event.keyCode == 9) {
         // Código para la tecla TAB
         console.log("Oprimiste la tecla TAB");
-        this.style.border = "5px solid green";
+        if(!this.isSelected){
+          this.style.border = "5px solid green";
+        }
+       
       }
     });
   return node;
