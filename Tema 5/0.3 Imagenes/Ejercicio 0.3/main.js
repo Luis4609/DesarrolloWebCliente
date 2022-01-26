@@ -6,7 +6,7 @@ function append(parent, el) {
   return parent.appendChild(el);
 }
 
-const ul = document.getElementById("contenedor");
+const container = document.getElementById("contenedor");
 const url =
   "https://api.generated.photos/api/v1/faces?api_key=3J9uZOJNEdDFZyIQCKNfLQ";
 
@@ -17,16 +17,15 @@ fetch(url)
   .then(function (data) {
     let images = data.faces;
     return images.map(function (image) {
-      let li = createNode("li");
+      let div = createNode("div");
       let img = createNode("img");
       // let span = createNode("span");
 
       img.src = image.urls[2][64];
       // span.innerHTML = `${image.name.first} ${image.name.last}`;
 
-      append(li, img);
-      // append(li, span);
-      append(ul, li);
+      append(div, img);
+      append(container, div);
     });
   })
   //Promise reject

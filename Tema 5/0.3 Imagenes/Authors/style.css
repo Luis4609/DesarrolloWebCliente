@@ -41,7 +41,6 @@ header {
 .node-img:hover {
   box-shadow: 0px 0px 20px 3px #00000042;
   width: 315px;
-  
 }
 .node-img:nth-last-child(1) {
   margin-bottom: 0;
