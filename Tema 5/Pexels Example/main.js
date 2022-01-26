@@ -26,6 +26,7 @@ class PhotoGallery {
       this.getImg(this.pageIndex);
     });
   }
+  //Get the image from the API
   async getImg(index) {
     this.loadMore.setAttribute("data-img", "curated");
     const baseURL = `https://api.pexels.com/v1/curated?page=${index}&per_page=12`;
