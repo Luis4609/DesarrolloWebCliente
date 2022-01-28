@@ -50,6 +50,10 @@
         box-shadow: 0px 0px 20px 3px #00000042;
         width: 315px;
       }
+      .node-img:focus {
+        box-shadow: 0px 0px 20px 3px green;
+        width: 350px;
+      }
       .node-img:nth-last-child(1) {
         margin-bottom: 0;
       }
@@ -79,8 +83,11 @@
 
     <div id="authors" class="authors"></div>
     <script>
+      var idNode = 0;
+
       function createNode(element) {
         var node = document.createElement(element);
+        node.idNode = idNode++;
         node.classList.add("node-img");
         node.setAttribute("tabindex", 1);
         node.addEventListener("click", selectImage);
@@ -105,6 +112,40 @@
               this.style.border = "5px solid green";
             }
           }
+          //Move with arrow keys
+          if (event.keyCode === 37 && node.selected == true) {
+            this.left = true;
+            this.style.border = "5px solid red";
+            if (this.idNode != 0) {
+              this.previousSibling.style.border = "5px solid yellow";
+            }
+          }
+          // only one key per event
+          if (event.keyCode === 38) {
+            this.up = true;
+            this.style.border = "5px solid red";
+          }
+          // so check exclusively
+          if (event.keyCode === 39) {
+            this.right = true;
+            this.style.border = "5px solid red";
+            if (this.idNode != 99) {
+              this.nextSibling.style.border = "5px solid yellow";
+            }
+          }
+          if (event.keyCode === 40) {
+            this.down = true;
+            this.style.border = "5px solid red";
+          }
+        });
+        node.addEventListener("onkeyup", function (event) {
+          var kc = e.keyCode;
+          e.preventDefault();
+
+          if (kc === 37) Keys.left = false;
+          else if (kc === 38) Keys.up = false;
+          else if (kc === 39) Keys.right = false;
+          else if (kc === 40) Keys.down = false;
         });
         return node;
       }

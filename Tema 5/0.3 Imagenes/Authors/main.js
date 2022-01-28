@@ -28,7 +28,7 @@ function createNode(element) {
     if (event.keyCode === 37 && node.selected == true) {
       this.left = true;
       this.style.border = "5px solid red";
-      if(this.idNode != 0){
+      if (this.idNode != 0) {
         this.previousSibling.style.border = "5px solid yellow";
       }
     }
@@ -36,13 +36,12 @@ function createNode(element) {
     if (event.keyCode === 38) {
       this.up = true;
       this.style.border = "5px solid red";
-      this
     }
     // so check exclusively
     if (event.keyCode === 39) {
       this.right = true;
       this.style.border = "5px solid red";
-      if(this.idNode != 99){
+      if (this.idNode != 99) {
         this.nextSibling.style.border = "5px solid yellow";
       }
     }
