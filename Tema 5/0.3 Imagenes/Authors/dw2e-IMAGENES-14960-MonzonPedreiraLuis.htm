@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authors API</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;900&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        font-family: "Montserrat", sans-serif;
+        font-size: 100%;
+      }
+      body {
+        background-color: #dbe2e9;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .authors {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        margin-top: 50px;
+        grid-gap: 20px;
+      }
+      .node-img {
+        width: 100%;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        transition: 0.3s ease box-shadow;
+      }
+      .node-img:hover {
+        box-shadow: 0px 0px 20px 3px #00000042;
+        width: 315px;
+      }
+      .node-img:nth-last-child(1) {
+        margin-bottom: 0;
+      }
+      .node-img h3 {
+        width: 100%;
+        padding: 20px;
+        position: absolute;
+        background-color: #00000040;
+        color: aliceblue;
+        bottom: -70px;
+        font-weight: 300;
+        transition: 0.5s ease-in-out bottom;
+      }
+      .node-img:hover h3 {
+        bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1 class="title">Authors from Random User API</h1>
+      <a href="https://randomuser.me/" class="documentation"
+        >API Documentation</a
+      >
+    </header>
+
+    <div id="authors" class="authors"></div>
+    <script>
+      function createNode(element) {
+        var node = document.createElement(element);
+        node.classList.add("node-img");
+        node.setAttribute("tabindex", 1);
+        node.addEventListener("click", selectImage);
+        node.addEventListener("onmouseover", resalta);
+        node.addEventListener("onmouseout", resalta);
+        node.addEventListener("keydown", function (event) {
+          // ENTER detectado
+          if (
+            event.keyCode == 13 ||
+            (event.keyCode == 9 && node.selected == true)
+          ) {
+            // Código para la tecla ENTER
+            console.log("Oprimiste la tecla ENTER o TAB");
+            this.style.border = "5px solid red";
+            this.isSelected = true;
+          }
+          // TAB detectado
+          if (event.keyCode == 9) {
+            // Código para la tecla TAB
+            console.log("Oprimiste la tecla TAB");
+            if (!this.isSelected) {
+              this.style.border = "5px solid green";
+            }
+          }
+        });
+        return node;
+      }
+
+      function append(parent, el) {
+        return parent.appendChild(el);
+      }
+
+      function selectImage() {
+        this.style.border = "5px solid yellow";
+        this.selected = true;
+        console.log("selected");
+      }
+
+      function resalta(elEvento) {
+        var evento = elEvento || window.event;
+        switch (evento.type) {
+          case "mouseover":
+            this.style.borderColor = "black";
+            break;
+          case "mouseout":
+            this.style.borderColor = "silver";
+            break;
+        }
+      }
+
+      const container = document.getElementById("authors");
+      const url = "https://randomuser.me/api/?results=100";
+
+      fetch(url)
+        //Convert fetch(url) in JSON
+        .then((resp) => resp.json())
+        //Promise resolve
+        .then(function (data) {
+          let authors = data.results;
+          return authors.map(function (author) {
+            let div = createNode("div");
+            let img = createNode("img");
+            let span = createNode("span");
+
+            img.src = author.picture.large;
+            span.innerHTML = `${author.name.first} ${author.name.last}`;
+
+            append(div, img);
+            append(div, span);
+            append(container, div);
+          });
+        })
+        //Promise reject
+        .catch(function (error) {
+          console.log(error);
+        });
+    </script>
+  </body>
+</html>
