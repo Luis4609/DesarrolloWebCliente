@@ -28,7 +28,6 @@
         function generarNumero(numero) {
             return (Math.random() * numero).toFixed(0);
         }
-
         function colorRGB() {
             var coolor = "(" + generarNumero(255) + "," + generarNumero(255) + "," + generarNumero(255) + ")";
             return "rgb" + coolor;
@@ -49,7 +48,7 @@
                 node.style.left = getRndInteger(0, 750) + "px";
                 node.style.top = getRndInteger(0, 500) + "px";
                 node.style.backgroundColor = colorRGB();
-                node.moveNode = function myMove() {
+                node.moveNode = function () {
                     var pos = 0;
                     clearInterval(id);
                     id = setInterval(frame, 10);

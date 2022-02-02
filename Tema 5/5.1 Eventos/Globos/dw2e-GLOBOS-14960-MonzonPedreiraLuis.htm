@@ -1,129 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Globos Js</title>
     <style>
-        .container {
-            width: 850px;
-            height: 600px;
-            border: 1px solid black;
-        }
+      .container {
+        width: 850px;
+        height: 600px;
+        border: 1px solid black;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <button onclick="myMove()">Move</button>
     <div class="container" id="container"></div>
     <script>
-        var idNode = 0;
+      var idNode = 0;
+      const container = document.getElementById("container");
+      var globos = [];
+      var intervalos = [];
 
-        function getRndInteger(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+      function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      function generarNumero(numero) {
+        return (Math.random() * numero).toFixed(0);
+      }
+
+      function colorRGB() {
+        var coolor =
+          "(" +
+          generarNumero(255) +
+          "," +
+          generarNumero(255) +
+          "," +
+          generarNumero(255) +
+          ")";
+        return "rgb" + coolor;
+      }
+      function createNode(element) {
+        var node = document.createElement(element);
+        node.classList.add("globe");
+        node.id = idNode++;
+        node.style.width = "50px";
+        node.style.height = "50px";
+        node.style.borderRadius = "50%";
+        node.style.border = "1px solid black";
+        node.style.position = "absolute";
+        node.style.left = getRndInteger(30, 750) + "px";
+        node.style.top = getRndInteger(30, 500) + "px";
+        node.style.backgroundColor = colorRGB();
+        node.style.transition = "top 1s, left 1s";
+        setInterval(changeRandomPosition ,getRndInteger(500, 3500), node) ;
+
+        return node;
+      }
+      function append(parent, el) {
+        return parent.appendChild(el);
+      }
+
+      function changeRandomPosition(node) {
+        node.style.top = getRndInteger(30, 550) + "px";
+          node.style.left = getRndInteger(0, 700) + "px";
+      }
+
+      function createGlobes() {
+        for (let i = 0; i < 35; i++) {
+          console.log("For");
+          let globo = createNode("div");
+          append(container, globo);
         }
-        function generarNumero(numero) {
-            return (Math.random() * numero).toFixed(0);
-        }
-
-        function colorRGB() {
-            var coolor = "(" + generarNumero(255) + "," + generarNumero(255) + "," + generarNumero(255) + ")";
-            return "rgb" + coolor;
-        }
-        function createNode(element) {
-            var node = document.createElement(element);
-            node.classList.add("globe");
-            node.id = idNode++;
-            // node.style.width = getRndInteger(25, 200) + "px";
-            // node.style.height = getRndInteger(25, 200) + "px";
-            node.style.width = "50px";
-            node.style.height = "50px";
-            node.style.borderRadius = "50%";
-            node.style.border = "1px solid black";
-            node.style.position = "absolute";
-            node.style.left = getRndInteger(0, 750) + "px";
-            node.style.top = getRndInteger(0, 500) + "px";
-            node.style.backgroundColor = colorRGB();
-            //Function
-            // node.setInterval(() => {
-            //     this.style.left = getRndInteger(0, 750) + "px";
-            //     this.style.top = getRndInteger(0, 500) + "px";
-            // }, 1000);
-
-            return node;
-        }
-        function append(parent, el) {
-            return parent.appendChild(el);
-        }
-
-        const container = document.getElementById("container");
-
-        function changeRandomPosition(id) {
-            var item = document.getElementById(id);
-            item.style.left = getRndInteger(0, 750) + "px";
-            item.style.top = getRndInteger(0, 500) + "px";
-            item.style.transition = "all 2s";
-            console.log(item.id);
-        }
-
-        // const myTimeout = setTimeout(changeRandomPosition, 1000);
-
-        function createGlobes() {
-            for (let i = 0; i < 20; i++) {
-                console.log("For");
-                let globo = createNode("div");
-                // globo.innerText = globo.id;
-                // console.log(globo.id);
-                // changeRandomPosition(i);
-                append(container, globo);
-            }
-        }
-
-        createGlobes();
-        let interval;
-
-        function repetirCadaSegundo() {
-            interval = setInterval(changeRandomPosition(2), 1000);
-            function changeRandomPosition(id) {
-                var item = document.getElementById(id);
-                item.style.left = getRndInteger(0, 750) + "px";
-                item.style.top = getRndInteger(0, 500) + "px";
-                item.style.transition = "all 2s";
-                console.log(item.id);
-            }
-            console.log("Interval");
-        }
-        repetirCadaSegundo();
-
-        var id = null;
-        function myMove() {
-            for (let i = 0; i < 20; i++) {
-                console.log(i);
-                var elem = document.getElementById(i);
-                var pos = 0;
-                clearInterval(id);
-                id = setInterval(frame, 10);
-                function frame() {
-                    if (pos == 350) {
-                        clearInterval(id);
-                    } else {
-                        pos++;
-                        elem.style.top = pos + 'px';
-                        elem.style.left = pos + 'px';
-                    }
-                }
-            }
-        }
-
-        // var i = 0;
-        // while (i < 20) {
-        //     console.log("While");
-        //     setInterval(changeRandomPosition(i), 1000);
-        //     i++;
-        // }
+      }
+      createGlobes();
     </script>
-</body>
-
+  </body>
 </html>
