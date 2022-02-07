@@ -1,5 +1,8 @@
-.container > form{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
+.container {
+  max-width: 960px;
+}
+.container > form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
