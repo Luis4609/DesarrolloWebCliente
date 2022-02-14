@@ -1,6 +1,6 @@
 <?php
-if ($_REQUEST) {
 
+if ($_REQUEST) {
     //Recibir datos json desde JS
     // $data = json_decode($_REQUEST['json']);
     if (isset($_GET['json'])) {
@@ -11,6 +11,7 @@ if ($_REQUEST) {
     usleep(1000000);
     // echo  "a: " . $data[0] . " b: " . $data[1];
     echo $data;
+    // exit = output echo and finish script
     exit;
 }
 ?>
@@ -24,10 +25,10 @@ if ($_REQUEST) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio JS</title>
     <script>
-        var a = [7,8,4,6,5,4,3,2,1];
-        var b = [10,500,200,1000,200,300,400,200,300];
+        var a = [7, 8, 4, 6, 5, 4, 3, 2, 1];
+        var b = [10, 500, 200, 1000, 200, 300, 400, 200, 300];
 
-        var n = 0;
+        var iter = 0;
         // var a = [9, 8, 7, 6, 5, 4, 3];
         // var b = [100, 200, 100, 200, 100, 200, 100];
 
@@ -35,24 +36,24 @@ if ($_REQUEST) {
             var xhr = new XMLHttpRequest();
 
             //Datos = convertir en JSON 
-            var datos = [a[n], b[n]];
+            var datos = [a[iter], b[iter]];
             var texto = JSON.stringify(datos);
 
             xhr.open("GET", "?json=" + texto, true);
             xhr.onload = function() {
                 if (this.status == 200) {
                     let response = JSON.parse(this.responseText)
-                    let output = `${n} recibido: a:${response[0]} + b: ${response[1]} y el tiempo: ${tiempo()} <br/>`;
+                    let output = `${iter} recibido: a:${response[0]} + b: ${response[1]} y el tiempo: ${tiempo()} <br/>`;
                     document.body.innerHTML += output;
                     console.log(this.responseText)
                 }
-                if (n > a.length - 2) return;
-                n += 1;
+                if (iter > a.length - 2) return;
+                iter += 1;
                 envio();
             }
             xhr.send();
 
-            output = `${n} enviado: a:${a[n]} + b: ${b[n]} y el tiempo: ${tiempo()} <br/>`;
+            output = `${iter} enviado: a:${a[iter]} + b: ${b[iter]} y el tiempo: ${tiempo()} <br/>`;
             document.body.innerHTML += output;
         }
 
