@@ -5,6 +5,7 @@
   position: absolute;
   top: 25px;
   left: 25px;
+  text-align: center;
 }
 
 .circulo {
@@ -16,24 +17,24 @@
 }
 
 .top-left {
-  position: relative;
+  position: absolute;
   top: -10px;
   left: -10px;
 }
 
 .top-right {
-  position: relative;
-  top: -30px;
+  position: absolute;
+  top: -10px;
   left: 40px;
 }
 .bottom-left {
-  position: relative;
-  top: 0px;
+  position: absolute;
+  top: 40px;
   left: -10px;
 }
 .bottom-right {
   position: relative;
-  top: -20px;
+  top: 22px;
   left: 40px;
 }
 

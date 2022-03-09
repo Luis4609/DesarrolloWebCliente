@@ -1,0 +1,104 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>control 10 nov - alfredoPuerta DW2E</title>
+
+        <script>
+            /*
+                INFORMACIÓN:
+                - Se emplea el uso de clases en los elementos <div> para diferenciar los elementos
+                    que queremos mostrar por pantalla y los elementos <div> que se utilizan para crear los
+                    saltos de línea.
+                
+                - Se dejan en el código los 'console.log' utilizados pero comentados, por si el profesor los necesita.
+                @ ALFREDO PUERTA GALLEGO - DW2E
+                
+            */
+
+            //contador para el número de cajas que irán apareciendo poco a poco por pantalla.
+            var contador = 1;
+            
+            function iniciar(){
+                crearTablero();
+            }
+
+            //función que crea el tablero que se debe ver por pantalla.
+            function crearTablero(){
+                //variable utilizada para el índice de las ids.
+                var index = 1; 
+
+                for(let i = 0; i < 4; i++){
+                    for(let j = 0; j < 8; j++){
+                        var caja = crearNodo('div', document.body, index++, 'cajas');
+                        caja.innerHTML = caja.id;
+                        //console.log(caja.id);
+                        caja.style.textAlign = 'center';
+                        caja.style.cssFloat = 'left';
+                        caja.style.width = '60px';
+                        caja.style.height = '60px';
+                        caja.style.margin = '8px';
+                        caja.style.border = '1px solid black';
+                        caja.style.backgroundColor = 'rgb(' + numRandom(255, 0) + ', ' + numRandom(255, 0) + ', ' + numRandom(255, 0) + ')';
+                        caja.addEventListener('click', clickCaja);
+                        if(caja.id != 'c<b>01</b>'){caja.style.display = 'none';}
+                    }
+
+                    crearSalto();
+                }
+            }
+
+            //función que se ejecuta al hacer click sobre las cajas mostradas por pantalla.
+            function clickCaja(){
+                if(contador > 31){alert('-COMPLETO-');}
+                var cajas = document.getElementsByClassName('cajas');
+                
+                try{
+                    //dejamos vacío el display para que no tome ningún valor y se muestre por defecto.
+                    cajas[contador].style.display = '';
+                } catch(err){
+                    /*
+                    no hace nada, ya que lo que captura es la excepción que se genera cuando
+                    el array 'cajas' no tiene los ínices que marca 'contador' cuando su valor es > 31.
+                    */
+                }
+                //console.log(contador);
+                contador++;
+            }
+
+            //función que crea nodos.
+            function crearNodo(tipo, padre, id, clase) {
+                var nodo = document.createElement(tipo);
+                //if(id != ''){nodo.id = id;}
+                if(id != ''){
+                    if(id.toString().length == 1){id = '0' + id;}   
+                    nodo.id = 'c<b>' + id + '</b>';
+                }
+                if(clase != ''){nodo.className = clase;}
+                padre.appendChild(nodo);
+                return nodo;
+            }
+
+            //función para crear saltos entre nodos.
+            function crearSalto(clase) {
+                // div vacio sin dimensiones con clear left
+                var ele = document.createElement('div'); // crear nodo
+                ele.setAttribute('class', clase);
+                ele.style.clear = 'left'; // css posicionamiento
+                document.body.appendChild(ele);	// añadir nodo al dom 
+            }
+
+            //función que devuelve un valor al azar entre un máximo y un mínimo.
+            function numRandom(max, min){
+    			return Math.floor(Math.random() * (max - min + min));
+		    }
+
+            window.onload = iniciar;
+        </script>
+    </head>
+
+    <body>
+    </body>
+</html>
