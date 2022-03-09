@@ -1,0 +1,278 @@
+<!DOCTYPE html><html xmlns='http://www.w3.org/1999/xhtml' lang='es' xml:lang='es'>
+<head>
+
+<title>paginador</title>
+<meta http-equiv='content-type' content='text/html; charset=utf-8'/>
+
+<script>
+
+/* GLOBALES ----------------------------------------------------------------- */
+var pagina; // pagina activa del paginador
+var color; // color activo del filtro
+const NE=aleatorio(1,100); // total de elementos cargados
+const EP=10; // elementos por pagina
+const colores=['ffe6cc','ff9933','66ffd9','00cc99','b3d9ff','80bfff']; // colores 
+
+/* ESTRUCTURA --------------------------------------------------------------- */
+function inicio(){
+	estructura(); // crea el grid
+	contenidos(document.getElementById('contenedorPaginador')); // crear cajas
+	paginador(document.getElementById('principal')); // crear el paginador
+	filtro(); // crear el filtro
+	document.getElementById('D').click(); // ejecuta un click , muestra todas las paginas
+	document.getElementById('filtro').firstChild.click(); // ejecuta un click , primera caja del filtro todos
+}
+function estructura(){
+	var d=document.getElementById('cabecera');
+	d.className+=' centrarV';	
+	document.getElementById('cabecera').innerHTML='tenemos '+NE+' elementos y '+EP+' por página';
+	var c=creaNodo(document.getElementById('principal'),'div');
+	c.id='contenedorPaginador';
+	c.className='centrarV';
+}
+function contenidos(p){
+	// crear elementos del contenedor
+	document.getElementById('contenedorPaginador').innerHTML='';
+	for (var j=0;j<NE;j++){
+		var b2=ponColor();	
+			caja1(creaNodo(p,'div'),'caja1',j,b2);		
+	}
+}
+function paginador(p){
+	// :target es el elemento al que saltamos despues de href #id
+	// el control desde JS puede ser una clase .active por ejemplo
+	// o un atributo .activado
+	var pg=NE/EP; // nodos por pagina
+	var b=creaNodo(p,'div');
+	b.id='paginador';
+	b.className='pagination'
+	// j=-1 primera caja del paginador (-)
+	for (var j=-1;j<pg;j++){
+		var c=creaNodo(b,'a');
+		c.onclick=onclickPagina;
+		if (j==-1){
+			c.href='#D';
+			c.id='D';			
+			c.pagina=-1;		
+			c.innerHTML='-';
+		}else{
+			c.href='#D'+j;
+			c.id='D'+j;
+			c.pagina=j;		
+			c.innerHTML=j;
+		}
+	}
+}
+function filtro(){
+	var p=creaNodo(document.getElementById('menu'),'div');	
+	p.id='filtro';
+	p.className+=' centrarV';
+	var a=creaNodo(p,'div');
+	a.color=-1; // primera caja del filtro = TODOS
+	a.style.backgroundColor='#EEE 0.5';
+	a.innerHTML='';
+	setA(a); // establece los atributos de a
+	for (x of colores){
+		var a=creaNodo(p,'div');
+		a.color='#'+x;
+		a.style.backgroundColor='#'+x;
+		setA(a);
+	}
+}
+
+/* EVENTOS -----*/
+function onclickPagina(){
+	pagina=this.pagina;
+	displayPagina();
+}
+function onclickFiltro(){
+	var t=document.getElementById("filtro").childNodes;
+	for (x of t){
+		x.style.borderWidth='1px';
+	}
+	this.style.borderWidth='2px';
+	color=this.color;
+	displayPagina();
+}
+function displayPagina(){
+	// reglas lógica para aplicar filtro + pagina
+	// [nota] ocultamos elementos con visibility+collapse asi desaparecen los huecos
+	var t=document.getElementById("contenedorPaginador").childNodes;
+	var z=0,visibles=0;
+	// estado inicial o no aplicamos el filtro
+	if (color==-1){color=undefined;}
+	if (pagina==-1){pagina=undefined;}	
+	for (x of t){			
+		// reglas lógicas true si el elemento cumple la regla
+		Bpagina=(z>=(pagina*EP)&&z<((pagina+1)*EP)); // elemento dentro de la pagina
+		Bcolor=(x.color==color); // elementos con ese color
+		x.style.visibility='collapse'; // apagar todos
+		// iluminar los elementos que cumplan las reglas		
+		// caso1: sin pagina sin filtroColor
+		if (pagina==undefined&&color==undefined){
+			x.style.visibility='visible';			
+		}
+		// caso2: solo filtroColor
+		if (pagina==undefined&&color!=undefined){
+			if (Bcolor){
+				x.style.visibility='visible';
+			}
+		}
+		// caso3: solo pagina
+		if (pagina!=undefined&&color==undefined){
+			if (Bpagina){
+				x.style.visibility='visible';
+			}
+		}
+		// caso4: pagina + filtroColor
+		if (pagina!=undefined&&color!=undefined){
+			if (Bcolor&&Bpagina){
+				x.style.visibility='visible';
+			}
+		}
+		if (x.style.visibility=='visible'){
+			visibles++;
+		}	
+		z++;
+	}
+	if (pagina!=undefined||color!=undefined){
+		document.getElementById("pie").innerHTML='ahora tienes '+visibles+' elementos';		
+	}else{
+		document.getElementById("pie").innerHTML='@ todos los derechos no reservados';
+	}
+}
+
+/* AUXILIARES --------------------------------------------------------------- */
+function setA(a){
+	a.onclick=onclickFiltro;
+	a.className='filtroColor';
+}
+function creaNodo(a,t){
+	var p=document.createElement(t);
+	a.appendChild(p);
+	return p;
+}
+function caja1(p,c,i,b){
+	p.className=c;
+	p.style.backgroundColor=b;
+	p.color=b;
+	p.innerHTML=i;
+}
+function ponColor(){
+	return '#'+colores[aleatorio(0,colores.length-1)];
+}
+function aleatorio(a,b) {
+	var x=Math.round(Math.random()*(b-a)+parseInt(a));
+	return x;
+}
+window.onload=inicio;
+</script>
+
+<style>
+
+/* ELEMENTOS -----------------------------------------------------------------*/
+#contenedorPaginador{ /* contenedor fijo con paginador */
+	border:1px solid #DDD;
+	width:99%;
+	height:88px;
+	flex-wrap: wrap;	
+	overflow: hidden; /* [nota] ocultar exceso fuera del contenedor */
+}
+.caja1{
+	border: 1px solid black;
+	width: 20px;
+	height: 80px;
+	min-width: 24px; /* [nota] no reduce el ancho de los elementos */
+	margin: 2px;
+}
+/* AUXILIARES ----------------------------------------------------------------*/
+.centrarV{ 	
+	/* centrar contenidos verticalmente */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* PAGINADOR -----------------------------------------------------------------*/
+.pagination {
+	display: inline-block;	/* elementos en linea centrados */
+	background-color: #DDD;	/* fondo */
+	margin-top:20px;	/* separacion arriba */
+	font-size: 0.8em;	/* fuente relativa com em */
+}
+.pagination a {
+	color: black;
+	border: 1px solid #EEE;
+	padding: 6px 4px;
+	width: 14px;
+	float: left; /**/
+	text-decoration: none;	/* [nota] quitar subrayado del enlace */
+	transition: background-color .5s;	/* [nota] efecto al cambiar el color */
+}
+:target { 
+	/* poner en verde la ultima página donde hicimos click */
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #4CAF50;
+	/* :target elemento id del ultimo click en href='#id' (solo un elemento?) */
+}
+/* GRID PRINCIPAL ------------------------------------------------------------*/
+/* [nota] uso de css grid w3c */
+.item1 { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+.item4 { grid-area: right; }
+.item5 { grid-area: footer; }
+.grid-container {
+	display: grid;
+	grid-template-areas: /* proporcion de las zonas*/
+	'header header header header header header'
+	'menu main main main main main'
+	'menu footer footer footer footer footer';
+	grid-gap: 4px; /* grueso lineas interiores */
+	background-color: #AAA;
+	padding: 4px; /* grueso borde de la tabla */
+	grid-template-columns: 40px auto;	/* fijar anchos de columnas */
+	grid-template-rows: 60px 180px; /* fijar anchos de filas */
+}
+.grid-container > div {
+	background-color: rgba(255, 255, 255, 0.5);
+	padding: 6px 0;
+	font-size: 16px;
+	}
+#cabecera{
+	background-image:url('img/g2.jpg');		
+	font-weight:bold;
+	color:white;
+	opacity:1; 
+	text-shadow:2px 2px 5px black;/* [nota] letras con sombra para ser muy visibles */
+	font-size: 2em;
+}
+#filtro{ 
+	/* [nota] centrar horizontalmente */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;  
+	}
+.filtroColor{
+	width:20px;
+	height:20px;
+	margin:4px;
+	border:1px solid black;
+	box-sizing:border-box;/* [nota] mantener dimensiones si cambiamos el grueso del borde */
+}
+body{ 
+	text-align: center; /* [nota] hereda a todos */
+}
+
+</style>
+
+</head>
+<body>
+<div class="grid-container">
+  <div id='cabecera' class="item1"></div>
+  <div id='menu' class="item2"></div>
+  <div id='principal' class="item3"></div>
+  <div id='pie' class="item5"></div>
+</div>
+</body>
+</html>

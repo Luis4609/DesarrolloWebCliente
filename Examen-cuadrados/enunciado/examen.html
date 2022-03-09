@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script>
+        var id = 8;
+
+        function crearCuadradoCirculos() {
+            // CREAR CUADRADO
+            var cuadrado = document.createElement('div')
+            cuadrado.classList.add('caja')
+            cuadrado.classList.add('gris')
+            cuadrado.id = "cuadrado-inicial"
+            cuadrado.innerText = id
+            // CREAR CIRCULOS
+            var circulo1 = document.createElement('div')
+            circulo1.classList.add('circulo')
+            circulo1.classList.add('top-left')
+
+            var circulo2 = document.createElement('div')
+            circulo2.classList.add('circulo')
+            circulo2.classList.add('top-right')
+
+            var circulo3 = document.createElement('div')
+            circulo3.classList.add('circulo')
+            circulo3.classList.add('bottom-left')
+
+            var circulo4 = document.createElement('div')
+            circulo4.classList.add('circulo')
+            circulo4.classList.add('bottom-right')
+            cuadrado.appendChild(circulo1)
+            cuadrado.appendChild(circulo2)
+            cuadrado.appendChild(circulo3)
+            cuadrado.appendChild(circulo4)
+            document.body.appendChild(cuadrado)
+
+        }
+        crearCuadradoCirculos()
+
+
+        function changeId() {
+            if (id > 1) {
+                this.innerText = --id;
+                this.style.backgroundColor = "yellow";
+                this.animate([
+                    // keyframes
+                    { transform: 'translateY(0px)' },
+                    { transform: 'translateY(300px)' }
+                ], {
+                    // timing options
+                    duration: 1000,
+                    // fillMode: forwards,
+                });
+            } else {
+
+            }
+        }
+
+        function myMove() {
+            let id = null;
+            const elem = document.getElementById("cuadrado-inicial");
+            let pos = 0;
+            clearInterval(id);
+            id = setInterval(frame, 5);
+            function frame() {
+                if (pos == 350) {
+                    clearInterval(id);
+                } else {
+                    pos++;
+                    elem.style.top = pos + "px";
+                    // elem.style.left = pos + "px";
+                }
+            }
+        }
+
+        document.getElementById("cuadrado-inicial").addEventListener('click', myMove)
+
+    </script>
+</body>
+
+</html>

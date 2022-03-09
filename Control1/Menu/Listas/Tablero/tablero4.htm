@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>tablero4</title>
+
+<script>
+function iniciar(){
+	for (j=1;j<9;j++){ // filas
+		for (k=1;k<9;k++){ // columnas	 
+			var ele=crearCelda(60,60,'C'+k+j); 
+				ele.style.backgroundColor=ponColor(); 
+		}
+		crearSalto(); // salto de linea al final de la fila		
+	}
+}
+function crearSalto(height){
+	// div vacio sin dimensiones con clear left
+	var ele=document.createElement('div');
+	document.body.appendChild(ele);	
+	ele.style.clear='left';
+}
+function crearCelda(width,height,id){
+	var ele=document.createElement('div'); // crear nodo div
+	document.body.appendChild(ele); // añadir nodo al dom	
+	ele.id=id;
+	ele.innerHTML=id;
+	ele.style.textAlign='center'; // centrar texto de innerHTML
+	ele.style.cssFloat='left'; // tb style.css='left'
+	ele.style.width=width+'px';
+	ele.style.height=height+'px';
+	ele.style.margin='0px';
+	ele.style.border='1px solid black'
+	ele.addEventListener('click',clickCaja); // evento click
+	return ele;
+}
+function clickCaja(){
+	// obtener div vaciar innerHTML poner color
+	// sender fondo blanco
+	var eles=document.getElementsByTagName('div'); 
+	for (let ele of eles){ 
+	 	ele.innerHTML='';
+	 	ele.style.backgroundColor=ponColor(); 
+	} 	
+	this.style.backgroundColor='white'; 
+}
+
+function ponColor(){
+	// pasar a hexadecimal como cadena
+	var r=aleatorio(0,255).toString(16); 
+	var g=aleatorio(0,255).toString(16);  
+	var b=aleatorio(0,255).toString(16);
+	console.log(r,g,b);	// 1,2 digitos !!
+	return '#'+r+g+b; // color en css tres hexadecimales
+}
+function aleatorio(a,b) {
+	return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+window.onload = iniciar; 
+</script>
+
+</head>
+ 
+
+ 
+<body>
+</body>
+
+</html>

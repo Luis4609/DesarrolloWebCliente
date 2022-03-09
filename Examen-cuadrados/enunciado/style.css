@@ -1,0 +1,49 @@
+.caja {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
+.circulo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: red;
+  position: absolute;
+}
+
+.top-left {
+  position: relative;
+  top: -10px;
+  left: -10px;
+}
+
+.top-right {
+  position: relative;
+  top: -30px;
+  left: 40px;
+}
+.bottom-left {
+  position: relative;
+  top: 0px;
+  left: -10px;
+}
+.bottom-right {
+  position: relative;
+  top: -20px;
+  left: 40px;
+}
+
+.gris {
+  background-color: rgb(190, 190, 190);
+}
+
+.active-caja {
+  background-color: yellow;
+}
+.active-circulo {
+  background-color: green;
+}

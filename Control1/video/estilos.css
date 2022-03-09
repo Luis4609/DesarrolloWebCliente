@@ -1,0 +1,172 @@
+/* GLOBALES-------------------------------------------------------------------------*/
+:root{ /* [nota] variables globales estaticas en css */
+	--m: 20px; 				/* separacion contenedores principales */
+	--w0: 766px;			/* ancho principal */
+	--c0: 1px solid #DDD;	/* borde elementos primeros dentro del contenedor */
+	--c1: 2px solid #AAA;	/* borde contenedores principales */
+}
+body{ /* [nota] hereda a todos */
+	text-align: center;
+}
+#botonera, #contenedor0, #contenedorScroll{
+	box-sizing: border-box;	/* calculos de la caja incluidos bordes */
+}
+/* BOTONES -------------------------------------------------------------------------*/
+#botonera{
+	border: var(--c1);
+	width: var(--w0);
+	height: 50px;
+	padding: 4px;
+	margin: var(--m);/* auto para centrar */ 	
+}
+.botonF,.botonO{
+	border: var(--c0);
+	cursor: pointer;
+	float: left;
+}
+.botonF{
+	background-color: #ffd699;
+}
+.boton:hover{
+  background-color: #AAA;	
+}
+/* anchos de los botones */
+#iTodos{width: 120px;}
+#iFiltro1{width: 120px;}
+#ordena1{width: 120px;}
+
+.centrarV{ 	/* [nota] centrar un texto verticalmente */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	}
+/* CONTENEDOREs DE FICHAS ----------------------------------------------------------*/
+#contenedor0{ /* contenedor fijo con paginador */
+	border: var(--c1);
+	width: var(--w0);
+	height: 290px;	
+	margin: var(--m);/* auto para centrar */ 
+	padding-bottom: 8px;
+}
+#contenedorPaginador{
+	border: var(--c0);
+	height: 220px;
+	margin: 8px;
+	overflow: hidden;
+}
+#contenedorScroll{
+	margin: var(--m);/* auto para centrar */
+	border: var(--c1);
+	width: 90%;
+	height: 240px;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	padding: 8px;
+	display: flex; /* contenido consecutivo necesario para el scroll */
+}
+/* FICHA -------------------------------------------------------------------------*/
+/* acceso por selectores a los campos de la ficha */
+.ficha{
+	max-width: 136px; /* evita cortar fichas */
+	min-width: 136px; /* evita cortar fichas */
+	margin: 6px;
+	float: left;
+}
+.ficha img{ /* imagen */
+	width: 90%;
+	height: 90px;
+	padding: 6px;	
+}
+.ficha>div{
+	background-color: #FEE;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	margin-bottom: 25px;
+}
+.ficha>div>div{
+	font-size: 14px;
+	height: 90px;	
+	text-align: center;
+	padding: 5px;
+}
+.titulo,.visitas{
+	width: 100%;
+ 	height: 1.4em;	
+	text-overflow: '..';	/* [nota] si los los textos no caben */ 
+ 	overflow: hidden;
+ 	white-space: nowrap;
+}
+.visitas{
+	font-weight: 600;
+}
+/* MODAL --------------------------------------------------------------------------*/
+#openModal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	pointer-events: none;
+}
+#openModal:target {
+	opacity:1;
+	pointer-events: auto;
+}
+#openModal > div {
+	width: 400px;
+	position: relative;
+	margin: 40px auto;
+	padding: 5px 20px 13px 20px;
+	background: #AAA;
+}
+#close {
+	background: #606061;
+	color: #FFF;
+	position: absolute;
+	right: -20px;
+	top: -20px;		
+	line-height: 48px;
+	width: 48px;
+	text-align: center;
+	text-decoration: none; /* subrayado hipreenlace fuera */
+	font-weight: bold;
+	-webkit-border-radius: 24px;
+	-moz-border-radius: 24px;
+	border-radius: 24px;
+}
+#close:hover { 
+	background: #FF5; 
+	color: #000;	
+}
+/* PAGINADOR ----------------------------------------------------------------------*/
+.pagination {
+	display: inline-block;	/* elementos en linea centrados */
+	background-color: var(--c);	/* fondo */
+	margin-top:16px;	/* separacion arriba */
+	font-size: 0.8em;	/* fuente relativa com em */
+}
+.pagination a {
+	color: black;
+	border: 1px solid #EEE;
+	padding: 6px 4px;
+	width: 14px;
+	float: left; /**/
+	text-decoration: none;	/* [nota] quitar subrayado del enlace */
+	transition: background-color .3s;	/* [nota] efecto */
+}
+.active{ 
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #4CAF50;
+}
+.active2{ 
+ 	background-color: #4CAF50;
+	
+}
+.active3{ 
+	background-color: #a6d8a8;
+}

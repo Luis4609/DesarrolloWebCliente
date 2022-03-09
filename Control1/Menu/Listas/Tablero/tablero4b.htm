@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>tablero4</title>
+
+<script>
+function iniciar(){
+	// creamos los nodos	
+	for (j=1;j<9;j++){ // filas
+		for (k=1;k<9;k++){ // columnas	 
+			var ele=crearCelda(60,60,'C'+k+j); // crear div
+			ele.style.backgroundColor=ponColor(); // color del div	
+		}
+		crearSalto(); // salto de linea al final de la fila		
+	}
+}
+function crearSalto(height){
+	// div vacio sin dimensiones
+	var ele=document.createElement('div'); // crear nodo
+	document.body.appendChild(ele);	// añadir nodo al dom	
+	ele.style.clear='left'; // css resetear float
+}
+function crearCelda(width,height,id){
+	var ele=document.createElement('div'); // crear nodo div
+	document.body.appendChild(ele); // añadir nodo al dom	
+	ele.id=id;
+	ele.innerHTML=id;
+	ele.style.textAlign='center'; // centrar texto de innerHTML
+	ele.style.cssFloat='left'; // posicionamiento
+	ele.style.width=width+'px';
+	ele.style.height=height+'px';
+	ele.style.margin='0px';
+	ele.style.border='1px solid black'
+	ele.addEventListener('click',clickCaja); // evento click
+	return ele;
+}
+function clickCaja(){
+	//this.innerHTML=''; // borrar el texto
+	var eles=document.getElementsByTagName('div'); // selector para una lista de nodos
+	for (let ele of eles){ // recorrer nodos
+	 	ele.innerHTML=''; // vacia innerHTML
+	 	ele.style.backgroundColor=ponColor(); // poner un color de fondo al azar
+	} 	
+	this.style.backgroundColor='white'; // sender en blanco
+}
+
+function ponColor(){
+	var r=aleatorio(0,255).toString(16).padStart(2,0); // pasar a hexadecimal como cadena
+	var g=aleatorio(0,255).toString(16).padStart(2,0);  
+	var b=aleatorio(0,255).toString(16).padStart(2,0);
+	console.log(r,g,b);	
+	return '#'+r+g+b; // color en css tres hexadecimales
+/*
+
+la anterior version no es exacta ya que puede generar numeros
+hexadecimales de una o dos cifras. Tenemos tres soluciones:
+- la presente, añadir ceros y pasar los tres hexadecimales a dos cifras
+- crear seis cifras hexadecimales, crear un decimal al azar en tre 0..15 y pasarlo a hexadecima usando un array o una funcion de conversion de base
+- crear los tres decimales al azar entre 0..255 y meterlos en una funcion de css como rgb(a,b,c)
+
+*/
+
+
+}
+function aleatorio(a,b) {
+	return Math.round(Math.random()*(b-a)+parseInt(a));
+}
+window.onload = iniciar; // sin parentesis , al final del head
+</script>
+
+</head>
+ 
+
+ 
+<body>
+</body>
+
+</html>
