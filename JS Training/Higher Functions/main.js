@@ -73,14 +73,23 @@ const sortAges = ages.sort((a, b) => a - b);
 const ageSum = ages.reduce((total, age) => total + age, 0);
 
 //Total years for companies
-const totalYears = companies.reduce((total, company) => total + (company.end - company.start), 0)
+const totalYears = companies.reduce(
+  (total, company) => total + (company.end - company.start),
+  0
+);
 
 //Combine methods
 
 const combine = ages
-.map(age => age * 2)
-.filter(age => age >= 40)
-.sort((a, b) => a - b)
-.reduce((a, b) => a + b, 0)
+  .map((age) => age * 2)
+  .filter((age) => age >= 40)
+  .sort((a, b) => a - b)
+  .reduce((a, b) => a + b, 0);
 
-console.log(`%cCombine: ${combine}`, 'font-weight: bold; color: red')
+console.log(`%cCombine: ${combine}`, "font-weight: bold; color: red");
+
+// const test = ages.map((age) =>
+//   document.body.append((document.createElement("div").innerHTML = age + 1))
+// );
+
+// console.log(`%cTest: ${test}`, "font-weight: bold; color: cyan");
