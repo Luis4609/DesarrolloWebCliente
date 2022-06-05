@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control-1 Repaso-12/05</title>
+</head>
+
+<body>
+    <script>
+        //Array dias semana
+        const semana = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes']
+        const ingresos = [1, 2, 3, 4, 5]
+        const gastos = [5, 4, 3, 2, 1]
+        
+        document.write('Manuel')
+
+        document.write('<br>')
+        document.write('<br>')
+
+        semana.map((dia) => document.write(` ${dia}`))
+
+        document.write('<br>')
+        document.write('<br>')
+
+        //Show calculos
+        semana.map(dia => {
+            document.write(`${dia}: ${ingresos - gastos}`)
+        })
+
+    </script>
+</body>
+
+</html>

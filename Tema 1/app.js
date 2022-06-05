@@ -4,8 +4,8 @@ var valorAlto = prompt("Introduce alto: ", "");
 var valorFondo = prompt("Introduce fondo: ", "");
 
 // variables para guardar el resultado de la superficie y el volumen
-const superficieFinal;
-const volumenFinal;
+const superficieFinal = 0;
+const volumenFinal = 0;
 
 
 // obtener superficie = fondo * ancho
