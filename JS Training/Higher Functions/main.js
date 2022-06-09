@@ -10,6 +10,8 @@ const companies = [
   { name: "Company Nine", category: "Retail", start: 1986, end: 2006 },
 ];
 
+console.log(companies[1].name)
+
 const ages = [33, 32, 43, 54, 12, 23, 34, 93, 32, 21, 45, 10, 5];
 
 // for(let i = 0; i < companies.length; i++){

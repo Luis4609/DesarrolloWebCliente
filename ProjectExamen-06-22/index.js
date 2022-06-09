@@ -31,9 +31,9 @@ const colorDisplay = document.querySelector('.hexValue')
 // Generate a random HEX color, for the footer background
 const setRandomBackground = () => {
     const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-    buttonColor.style.backgroundColor = "#" + randomColor;
-    color.innerHTML = "#" + randomColor;
+    colorDisplay.style.backgroundColor = "#" + randomColor;
+    colorDisplay.innerHTML = "#" + randomColor;
 }
 
-genNew.addEventListener("click", setRandomBackground);
+buttonColor.addEventListener("click", setRandomBackground);
 setRandomBackground();
