@@ -1,0 +1,122 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentences 3</title>
+</head>
+
+<body>
+    <h1>Sentencias</h1>
+
+    <div class="container"></div>
+
+    <form action="" method="get">
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+        <label for="lastName">LastName:</label>
+        <input type="text" id="lastName">
+        <label for="email">Email:</label>
+        <input type="email" id="email">
+        <label for="password">Password:</label>
+        <input type="password" id="password">
+    </form>
+    <script>
+        //Get elements from the DOM
+        const container = document.querySelector('.container')
+        //Declaracion de variables
+        let code = 0;
+        let liters = 0;
+        let liters_cod1 = 0;
+        let price = 0;
+        let over_600 = 0;
+
+        //Get random number between min and max
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        //Create element
+        function newElement(nodo) {
+            if (typeof nodo == String) {
+                document.createElement(nodo)
+            }
+            console.log(`Nodo creado`)
+
+        }
+        //Add basic styles to a element
+        function addBasicStyles(node) {
+            node.style.width = "50px"
+            node.style.height = "50px"
+            node.style.border = "1px solid black"
+            node.style.background = "red"
+            node.style.margin = "10px"
+        }
+
+        const div = document.createElement('div')
+        addBasicStyles(div)
+
+
+        //Counter 
+        let divCount = 0;
+
+        //Random color
+        const setBackgroundColor = () => {
+            const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+        }
+
+        //Click event to add count and change the color
+        div.addEventListener('click', () => {
+
+            console.log(`Click en el div rojo: ${divCount++} + color: ${div.style.background}`)
+
+            div.innerText = divCount
+            div.style.background = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        })
+
+        //New box
+        const boxDiv = document.createElement('div')
+        addBasicStyles(boxDiv)
+
+        //Get Data from the 
+        document.addEventListener('change', () => {
+            console.log(``)
+        })
+
+
+
+        for (let i = 0; i <= 5; i++) {
+
+            document.write(`Invoice nº ${i} : `)
+
+            code = getRndInteger(1, 10)
+            document.write(`Product code: ${code} :`)
+
+            liters = getRndInteger(1, 100)
+            document.write(`Numbers (l) ${liters} <br></br>`)
+
+            if (code == 1) {
+                price = 0.6
+            } else if (code == 2) {
+                price = 30
+            } else if (code == 3) {
+                price = 101.25
+            } else {
+                price = 0
+            }
+        }
+
+        document.write(`Total invoicing: ${liters_cod1} y ${liters} `)
+        document.write(`Liters Article1: ${liters_cod1} and ${liters} `)
+        document.write(`Invoice over 600€: ${over_600} `)
+
+        //Append elements at the bottom of the DOM
+        document.body.append(div)
+        document.body.append(boxDiv)
+
+
+    </script>
+</body>
+
+</html>
