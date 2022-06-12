@@ -1,0 +1,55 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Project Js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script>
+
+        //Append elements to their parent
+        function append(child, parent) {
+            parent.appendChild(child)
+        }
+
+        //Create first section of the Page
+        const section1 = document.createElement('section')
+        section1.classList.add('menu')
+
+        //Create title for the section
+        const titleSection = document.createElement('div')
+        titleSection.classList.add('title')
+
+        //Create text for the title of the section
+        const tituloH2 = document.createElement('h2')
+        tituloH2.innerText = "Título del section1"
+
+        //Append elements to section1
+        append(tituloH2, titleSection)
+        append(titleSection, section1)
+
+        //Create filter button
+
+
+        //Create menu items
+
+
+
+        //Create center section of the Page
+        const centerSection = document.createElement('section')
+        centerSection.classList.add('center')
+
+        //Append elements to the DOM
+        append(section1, document.body)
+        append(centerSection, document.body)
+
+        // document.body.appendChild(section1)
+        // document.body.appendChild(centerSection)
+    </script>
+</body>
+
+</html>

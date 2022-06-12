@@ -1,0 +1,37 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGEX</title>
+</head>
+
+<body>
+    <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos iste officiis magnam, tempore velit quos
+        natus
+        animi. Hic earum similique quia repudiandae, dolor ullam maxime asperiores, assumenda ipsam quidem sed.</p>
+    <script>
+        const text = document.getElementById('text')
+
+        //REGEX
+        const regex = /(earu?m | do*lor)/g
+        // ?: 0 or 1 time  
+        // *: 0 or many times
+        // +: 1 or more times
+
+        //All the matching patterns in the string MATCH
+        const match = text.innerHTML.match('olor')
+        //Single match SEARCH
+        const search = text.innerHTML.search(regex)
+        //REPLACE to replace the match
+        const replace = text.innerHTML.replace(regex, ' REPLACE ')
+
+        console.log(`%cThis is the match: ${match}`, "color: green")
+        console.log(`%cThis is the search: ${search}`, "color: grey")
+        console.log(`%cThis is the replace: ${replace}`, "color: red")
+
+    </script>
+</body>
+
+</html>
