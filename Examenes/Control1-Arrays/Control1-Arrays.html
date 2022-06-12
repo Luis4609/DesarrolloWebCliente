@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo 2 - Control 1</title>
+</head>
+
+<body>
+    <!-- Apartados ==
+1) Imprime tu nombre.
+2) Crea un array con los dias de la semana, imprimela.
+3) Crea un array con ingresos (1,2,3,4,5) y otra con gastos (5,4,3,2,1). Calcula el beneficio restando ingresos-gastos. Imprime: dia, ingresos, gastos y beneficios.
+4) Calcula e imprime totales: ingresos#gastos#beneficios, son la suma respectiva de todos los dia.
+5) Calcula e imprime medias: ingresos#gastos#beneficos, son la media respectiva de todos los dias.
+6) Para las últimas tres lineas crea o copia de internet una funcion que retorne un valor al azar. Calcula ingresos y gastos con valores al azar entre 2 y 8 incluidos.
+ Para cada recarga de página tendremos datos diferentes generados al azar. La captura 2 ha sido tomada despues de una recarga de la página. -->
+
+
+    <script>
+        const nombreUsuario = "Manuel"
+        const weekDays = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+        const incomeArray = [1, 2, 3, 4, 5]
+        const outcomeArray = [5, 4, 3, 2, 1]
+
+        const benefits = [];
+
+        for (let i = 0; i < incomeArray.length; i++) {
+            benefits[i] = incomeArray[i] - outcomeArray[i]
+        }
+
+        console.log(`%c benefits: ${benefits}`, 'font-weight: bold; color: cyan')
+        console.table(benefits)
+
+        document.write(`${nombreUsuario} <br> <br>`)
+        document.write(`Dia: ${weekDays} <br>`)
+        //   document.write(`Ingresos: ${weekDays[0]}: ${incomeArray[0]}-${outcomeArray[0]} = ${benefits[0]}`)
+        //   benefits.map(benefit => console.log(`%cLog benefits: ${benefit}`, 'color: cyan;'))
+
+        //   benefits.map(benefit => document.write(`Ingresos: ${weekDays}: ${incomeArray}-${outcomeArray} = ${benefits}`))
+        //   benefits.forEach((benefit) => {
+        //     document.write(`Ingresos: ${weekDays}: ${incomeArray}-${outcomeArray} = ${benefit} <br>`)
+        //   })
+
+        for (let i = 0; i < benefits.length; i++) {
+            document.write(`${weekDays[i]}: ${incomeArray[i]}-${outcomeArray[i]} = ${benefits[i]}#`)
+        }
+
+        document.write('<br>')
+        //TOTALES
+        document.write(`Totales: ${incomeArray.reduce((a, b) => a + b, 0)}#${outcomeArray.reduce((a, b) => a + b, 0)}#${benefits.reduce((a, b) => a + b, 0)}`)
+        //MEDIAS
+        document.write('<br>')
+        document.write(`Medias: ${incomeArray.reduce((a, b) => a + b, 0) / incomeArray.length}#${outcomeArray.reduce((a, b) => a + b, 0) / outcomeArray.length}#${benefits.reduce((a, b) => a + b, 0) / benefits.length} <br> <br>`)
+
+        //RANDOM NUMBER, MIN AND MAX INCLUDED
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        var randomIncome = []
+        var randomOutcome = []
+        for (let i = 0; i < 5; i++) {
+            randomIncome.push(getRndInteger(2, 8))
+            randomOutcome.push(getRndInteger(2, 8))
+        }
+
+        var randomBenefits = []
+        for (let i = 0; i < randomIncome.length; i++) {
+            randomBenefits[i] = randomIncome[i] - randomOutcome[i]
+        }
+
+        console.log(`Income: ${randomIncome}, Outcome: ${randomOutcome}`)
+
+        function random() {
+            for (let i = 0; i < randomBenefits.length; i++) {
+                document.write(`${weekDays[i]}: ${randomIncome[i]}-${randomOutcome[i]} = ${randomBenefits[i]}#`)
+            }
+            document.write('<br>')
+            //TOTALES
+            document.write(`Totales: ${randomIncome.reduce((a, b) => a + b, 0)}#${randomOutcome.reduce((a, b) => a + b, 0)}#${randomBenefits.reduce((a, b) => a + b, 0)}`)
+            //MEDIAS
+            document.write('<br>')
+            document.write(`Medias: ${randomIncome.reduce((a, b) => a + b, 0) / randomIncome.length}#${randomOutcome.reduce((a, b) => a + b, 0) / randomOutcome.length}#${randomBenefits.reduce((a, b) => a + b, 0) / randomBenefits.length}`)
+        }
+
+        random()
+
+    </script>
+</body>
+
+</html>

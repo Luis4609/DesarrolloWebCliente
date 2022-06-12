@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cajas - random color</title>
+</head>
+
+<body>
+
+    <script>
+        // variables globles
+        var contador = 0;
+        var decenas = 0;
+        var unidades = 1
+        //Main
+        function iniciar() {
+            crearCaja();
+        }
+        //Método para crear las cajas
+        function crearCaja() {
+            var ele = document.createElement('div');
+            //stilos del div creado
+            ele.style.width = '60px';
+            ele.style.height = '60px';
+            ele.style.border = '1px solid black';
+            // color generado aleatoriamente
+            ele.style.backgroundColor = 'rgb(' + aleatorio(0, 255) + ', ' + aleatorio(0, 255) + ', ' + aleatorio(0, 255) + ')';
+            ele.style.margin = '8px';
+            ele.style.cssFloat = 'left';
+            ele.style.textAlign = 'center';
+            //de esta manera podemos colocar el 0 delante de las unidades
+            if (contador < 9) {
+                ele.innerHTML = `c <b> ${decenas}${unidades} </b>`
+                // ele.innerHTML = 'c' + '<b>' + decenas + unidades + '</b>';
+            } else {
+                ele.innerHTML = `c <b> ${unidades} </b>`
+                // ele.innerHTML = 'c' + '<b>' + unidades + '</b>';
+            }
+            contador++;
+            unidades++;
+            //click en la caja
+            ele.addEventListener('click', clickCaja);
+            //colgamos del body los divs creados
+            document.body.appendChild(ele);
+            //devolemos el div
+            return ele;
+        }
+        //función para cuando hagamos click en la caja
+        function clickCaja() {
+            //creamos cajas mientras el contador sea menor que 32 y si no mostramos que hemos completado todos los divs
+            if (contador < 32) {
+                crearCaja();
+            } else {
+                alert('-COMPLETO-');
+            }
+            //cada vez que lleguemos a 8 hacemos un salto de línea
+            if (contador % 8 == 0) {
+                crearSalto();
+            }
+        }
+        //función para crear saltos de línea
+        function crearSalto() {
+            var ele = document.createElement('div');
+            ele.style.clear = 'left';
+            document.body.appendChild(ele);
+        }
+        //función para generar números aleatorios
+        function aleatorio(minimo, maximo) {
+            return Math.floor(Math.random() * ((maximo + 1) - minimo) + minimo);
+        }
+        //iniciar
+        window.onload = iniciar;
+    </script>
+
+    <body>
+
+    </body>
+
+</html>

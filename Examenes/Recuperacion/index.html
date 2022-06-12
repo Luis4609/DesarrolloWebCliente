@@ -1,0 +1,354 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        document.body.style.fontFamily = 'arial'
+        document.body.style.color = "#D00"
+        document.body.style.boxSizing = "border-box"
+
+        const t = '80,20\n20,80\n90,10\n70,30\n90,10';
+
+
+
+        //textarea
+        const textArea = document.createElement('textarea')
+        textArea.id = "entrada"
+        textArea.classList.add('bEntrada')
+        textArea.innerHTML = t
+        textArea.style.width = "350px"
+        textArea.style.resize = "none"
+        textArea.style.height = "110px"
+        textArea.style.fontSize = "18px"
+        textArea.style.color = "red"
+        textArea.ariaMultiLine = "Multiline"
+        textArea.style.border = "2px solid grey"
+        document.body.append(textArea)
+
+
+        //validacion
+        textArea.addEventListener('input', () => {
+
+            //validar entrada 
+            if (validarEntrada()) {
+                //habilitar dibujar click
+                console.log('Entrada validada')
+                enableButton()
+                divButton.addEventListener('click', handleClick)
+
+            } else {
+                //muestro mensaje por pantalla
+                disableButton()
+                //pulsa para dibujar
+                //borrar 
+                const containerNode = document.getElementById('container')
+                if (containerNode) {
+                    document.body.removeChild(containerNode)
+                }
+            }
+        })
+
+        //button
+        const divButton = document.createElement('div')
+        divButton.id = "run"
+        divButton.classList.add('ctv', 'sobre')
+        divButton.style.width = "350px"
+        divButton.style.height = "50px"
+        divButton.style.display = "flex"
+        divButton.style.alignItems = "center"
+        divButton.style.justifyContent = "center"
+        divButton.style.fontSize = '14px'
+        divButton.innerHTML = 'pulsa para dibujar'
+        divButton.style.border = "2px solid grey"
+        divButton.style.boxSizing = "border-box"
+        divButton.style.marginTop = "5px"
+        document.body.append(divButton)
+        // divButton.style.cursor = "pointer"
+
+        divButton.addEventListener('mouseover', () => {
+            divButton.style.backgroundColor = "yellow"
+        })
+
+        divButton.addEventListener('mouseout', () => {
+            divButton.style.backgroundColor = "white"
+        })
+
+        //pulsa para dibujar
+        divButton.addEventListener('click', handleClick)
+
+        function handleClick() {
+            console.log('Click dibujando')
+
+            //dibujar los resultados
+            dibujarRespuesta()
+
+        }
+
+        function enableButton() {
+            divButton.style.color = 'blue'
+            divButton.style.cursor = "pointer"
+        }
+
+        function disableButton() {
+            divButton.style.color = 'green'
+            divButton.style.cursor = "default"
+            divButton.removeEventListener('click', handleClick)
+        }
+
+
+        function validarEntrada() {
+            //num de lineas
+            let numLines = getNumberLines()
+            if (numLines > 5 || numLines < 1) {
+                divButton.innerHTML = 'Numero de lineas no puede ser mayor que 5 o menor que 1'
+                return false
+            }
+            //num de campos correctos
+            if (!isValidNumeroCampos()) {
+                divButton.innerHTML = 'Numero de campos es incorrecto'
+                console.log('Mal campo validados')
+                return false
+            }
+            if (!isValidNumerosEnteros()) {
+                console.log('Mal enteros validados')
+                return false
+            }
+
+            divButton.innerHTML = 'pulsa para dibujar'
+            return true
+        }
+
+        function getNumberLines() {
+            const text = textArea.value;
+            const lines = text.split("\n");
+            const count = lines.length;
+            return count;
+        }
+
+        function isValidNumeroCampos() {
+            let valid = true
+            const text = textArea.value;
+            const lines = text.split("\n");
+            lines.forEach(elem => {
+                const campos = elem.split(',')
+                if (!(campos.length == 2)) {
+                    console.log('Mal campo')
+                    valid = false
+                    return valid
+                }
+                if (campos[0] === "" || campos[1] === "") {
+                    valid = false
+                    return valid
+                }
+            })
+
+            return valid
+        }
+
+        function isValidNumerosEnteros() {
+            let valid = true
+            const text = textArea.value;
+            const lines = text.split("\n");
+
+            lines.forEach(elem => {
+                const campos = elem.split(',')
+
+                let campo0 = Number(campos[0])
+                let campo1 = Number(campos[1])
+
+                if (campo0 == NaN || campo1 == NaN) {
+                    valid = false
+                    return valid
+                }
+                if (!(Number.isInteger(campo0) && Number.isInteger(campo1))) {
+                    valid = false
+                    divButton.innerHTML = 'Los campos no son enteros'
+                    return valid
+                }
+
+                if ((campo0 < 5 || campo0 > 95) || (campo1 < 5 || campo1 > 95)) {
+                    valid = false
+                    divButton.innerHTML = 'Los campos tienen que estar entre 5 y 95'
+                    return valid
+                }
+
+                // if (campo0 + campo1 !== 100) {
+                //     valid = false
+                //     divButton.innerHTML = 'Los campos no pueden sumar distinto de 100'
+                //     return valid
+                // }
+
+                if (campo0 % 5 !== 0 || campo1 % 5 !== 0) {
+                    valid = false
+                    divButton.innerHTML = 'Los campos tienen que ser multiplos de 5'
+                    return valid
+                }
+            })
+
+            return valid
+        }
+
+        function dibujarRespuesta() {
+
+            const containerNode = document.getElementById('container')
+            if (containerNode) {
+                // document.body.removeChild(containerNode)
+                actualizarRespuesta()
+            } else {
+
+
+
+
+
+                //crear la respuesta
+                const text = textArea.value;
+                const lines = text.split("\n");
+
+                const container = document.createElement('div')
+                container.id = "container"
+                container.style.width = "350px"
+                container.style.boxSizing = "border-box"
+                container.style.marginTop = "15px"
+                container.style.display = "flex"
+                container.style.flexWrap = "wrap"
+
+                let i = 0;
+
+                lines.forEach(elem => {
+                    const campos = elem.split(',')
+
+                    let campo0 = Number(campos[0])
+                    let campo1 = Number(campos[1])
+
+                    let porcentaje1 = (campo0 / (campo0 + campo1)) * 100
+                    let porcentaje2 = (campo1 / (campo0 + campo1)) * 100
+
+                    //pintar cada linea
+                    const box0 = document.createElement('div')
+                    box0.id = `${i}-${0}`
+                    // box0.style.width = `${campo0}%`
+                    box0.style.width = `${porcentaje1}%`
+                    box0.style.height = "20px"
+                    box0.style.border = "1px solid black"
+                    box0.style.background = "grey"
+                    box0.style.boxSizing = "border-box"
+                    box0.style.textAlign = "center"
+                    box0.innerHTML = `${campo0}`
+                    container.append(box0)
+
+                    const box1 = document.createElement('div')
+                    box1.id = `${i}-${1}`
+                    box1.style.width = `${porcentaje2}%`
+                    // box1.style.width = `${campo1}%`
+                    box1.style.border = "1px solid black"
+                    box1.style.height = "20px"
+                    box1.style.background = "grey"
+                    box1.style.boxSizing = "border-box"
+                    box1.style.textAlign = "center"
+
+                    box1.innerHTML = `${campo1}`
+
+                    container.append(box1)
+                    i++
+
+                })
+
+                document.body.append(container)
+            }
+
+        }
+
+        let valoresActualesMatriz = obtenerValoresActuales();
+        console.log(`Valores iniciales: ${valoresActualesMatriz}`)
+
+
+
+        //obtener las coordenadas de los cambios
+        function obtenerValoresActuales() {
+            const text = textArea.value;
+            const lines = text.split("\n");
+
+            let matriz = []
+            lines.forEach(elem => {
+                const campos = elem.split(',')
+
+                let valoresActualesArrayELem = []
+
+                let campo0 = Number(campos[0])
+                let campo1 = Number(campos[1])
+                valoresActualesArrayELem = [campo0, campo1]
+                matriz.push(valoresActualesArrayELem)
+            })
+
+            return matriz
+        }
+
+        function getChangeValue(actuales, modificados) {
+
+            let coordenadas = []
+            let resultado = []
+
+            for (let i = 0; i < actuales.length; i++) {
+                for (let j = 0; j < actuales[i].length; j++) {
+                    if (actuales[i][j] !== modificados[i][j]) {
+                        coordenadas = [i, j]
+                        resultado.push(coordenadas)
+                    }
+                }
+
+            }
+
+            return resultado
+        }
+
+        function actualizarRespuesta() {
+
+            //coordenadas
+            let valoresModificados = obtenerValoresActuales()
+            console.log(`Modificados ${valoresModificados}`)
+            console.log(`Actuales ${valoresActualesMatriz}`)
+            let coordenada = getChangeValue(valoresActualesMatriz, valoresModificados)
+            console.log(`Coordenadas: ` + coordenada)
+
+            //cambiar texto
+            if (coordenada) {
+                valoresActualesMatriz = valoresModificados                  
+                console.log(`Actuales2 ${valoresActualesMatriz}`)
+
+                coordenada.forEach(elem => {
+                    let box0 = document.getElementById(`${elem[0]}-${0}`)
+                    let box1 = document.getElementById(`${elem[0]}-${1}`)
+
+                    console.log(`Elem 0:` + elem[0])
+                    console.log(`Actuales3 ${valoresActualesMatriz[elem[0]]}`)
+
+
+                    let campo0 = valoresActualesMatriz[elem[0]][0]
+                    console.log(`Campo 0: ${campo0}`)
+                    let campo1 = valoresActualesMatriz[elem[0]][1]
+
+                    let porcentaje0 = (campo0 / (campo0 + campo1)) * 100
+                    let porcentaje1 = (campo1 / (campo0 + campo1)) * 100
+
+
+                    box0.style.width = `${porcentaje0}%`
+                    box0.innerHTML = `${campo0  }`
+
+                    box1.style.width = `${porcentaje1}%`
+                    box1.innerHTML = `${campo1}`
+
+                })
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+Nombre del fichero: DW2E-OC1-expediente-ApellidosNombre.htm
+Tiempo: 110 minutos
+Acceso internet: si
+
+CRITERIOS DE EVALUACION
+=================
+- Puntua cada apartado completado.
+- El nombre del fichero para entregar es el indicado en la primera linea.
+- Entregas con el nombre mal o fuera de tiempo son un cero.
+- Entregas que no cumplan las premisas son un cero.
+- Se puede entregar multiples veces, se evalua la última dentro del tiempo.
+
+PREMISAS
+=======
+- Un solo archivo, body vacio, solo javascript.
+- Firefox en linux
+
+APARTADOS
+=======
+Resolver segun enunciado, captura y video
+Para almacenar los datos copiar esta estructura:
+
+var t='80,20\n20,80\n90,10\n70,30\n90,10';
+
+1) Pantalla inicial al cargar la página (2 puntos)
+a- crear los dos contenedores.
+b- tamaño, posición y alineación de los contenedores en pantalla.
+c- tamaño de los caracteres.
+d- alineacion de los caracteres
+e- color de los caracteres
+f- color amarillo en el contenedor al pasar el ratón.
+g- cambio de puntero del raton.
+
+2) Chequeos de entrada de datos, los mensajes de texto deben ser exactos a los presentados (4 puntos)
+a-cero lineas.
+b-numero de campos correctos en cada linea.
+c-lo datos de entrada son numeros enteros en cada linea.
+d-la suma de los numeros de cada linea.
+e-todos los numeros deben ser múltiplos de cinco.
+f-rango valido de todos los numeros de entrada.
+g-no puedes tener mas de 5 lineas.
+h-pulsa para dibujar cuando se pasan todos los chequeos en todas las lineas.
+
+3) Ejecución para cualquier entrada valida (4 puntos)
+a-una barra por cada linea de entrada entre 1 y 5 lineas.
+b-dividir cada barra proporcionalmente a los números de entrada.
+c-numeros contenidos de la barra corresponden a los números de entrada.
+d-al pasar sobre la barra se ilumina en amarillo cada porción.

@@ -1,0 +1,117 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen 11-06</title>
+</head>
+
+<body>
+    <script>
+
+        let id = 8
+
+
+
+        //Crear el cuadrado
+        createContenedor()
+
+        function createContenedor() {
+            let nextCuadrado = document.createElement('div')
+            nextCuadrado.style.width = "50px"
+            nextCuadrado.style.height = "50px"
+            nextCuadrado.style.background = "grey"
+            nextCuadrado.style.margin = "30px"
+            nextCuadrado.style.position = "relative"
+            nextCuadrado.style.top = "10px"
+            nextCuadrado.style.left = "10px"
+            nextCuadrado.style.textAlign = "center"
+            nextCuadrado.style.cursor = "pointer"
+
+            nextCuadrado.id = id
+            nextCuadrado.innerText = id
+
+            //listener
+            if (id > 1) {
+
+                nextCuadrado.addEventListener('click', function handler() {
+
+                    console.log(`Cuadrado con id: ${id}`)
+                    nextCuadrado.style.background = "yellow"
+
+                    bolita1.style.background = "green"
+                    bolita2.style.background = "green"
+                    bolita3.style.background = "green"
+                    bolita4.style.background = "green"
+
+                    //count id
+                    id--
+
+                    //removeEventListener del click
+                    this.removeEventListener('click', handler)
+                    // create new contenedor
+                    createContenedor(document.body)
+
+                    nextCuadrado.style.cursor = "default"
+                    nextCuadrado.style.top = "10px"
+                    nextCuadrado.style.left = "10px"
+
+                })
+            }
+
+
+
+            //Crear las bolitas ROJAS
+            let bolita1 = document.createElement('div')
+            bolita1.style.width = "20px"
+            bolita1.style.height = "20px"
+            bolita1.style.background = "red"
+            bolita1.style.borderRadius = "50%"
+            bolita1.style.position = "absolute"
+            bolita1.style.top = "-10px"
+            bolita1.style.left = "-10px"
+
+            let bolita2 = document.createElement('div')
+            bolita2.style.width = "20px"
+            bolita2.style.height = "20px"
+            bolita2.style.background = "red"
+            bolita2.style.borderRadius = "50%"
+            bolita2.style.position = "absolute"
+            bolita2.style.top = "-10px"
+            bolita2.style.left = "40px"
+
+            let bolita3 = document.createElement('div')
+            bolita3.style.width = "20px"
+            bolita3.style.height = "20px"
+            bolita3.style.background = "red"
+            bolita3.style.borderRadius = "50%"
+            bolita3.style.position = "absolute"
+            bolita3.style.top = "40px"
+            bolita3.style.left = "-10px"
+
+            let bolita4 = document.createElement('div')
+            bolita4.style.width = "20px"
+            bolita4.style.height = "20px"
+            bolita4.style.background = "red"
+            bolita4.style.borderRadius = "50%"
+            bolita4.style.position = "absolute"
+            bolita4.style.top = "40px"
+            bolita4.style.left = "40px"
+
+            // nextCuadrado.addEventListener('click', listener)
+
+
+            //insert a node as the first child
+            document.body.prepend(nextCuadrado)
+            nextCuadrado.append(bolita1)
+            nextCuadrado.append(bolita2)
+            nextCuadrado.append(bolita3)
+            nextCuadrado.append(bolita4)
+
+        }
+
+    </script>
+</body>
+
+</html>

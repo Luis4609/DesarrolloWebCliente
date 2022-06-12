@@ -1,0 +1,76 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let contador = 0;
+        let id = 0;
+        let code = 1;
+
+        //get random hex color
+        function getRandomColor() {
+            return Math.floor(Math.random() * 16777215).toString(16);
+        }
+        function createNode() {
+
+            let stringCode = `c<b>${id}${code}</b>`
+
+            const node = document.createElement('div')
+            node.id = stringCode
+            node.style.textAlign = "center"
+            node.style.float = "left"
+            node.style.width = "60px"
+            node.style.height = "60px"
+            node.style.border = "1px solid black"
+            node.style.margin = "10px"
+            node.style.backgroundColor = '#' + getRandomColor()
+            if (code > 9) {
+                node.innerHTML = `c<b>${code}</b>`
+            } else {
+                node.innerHTML = `c<b>${id}${code}</b>`
+            }
+            contador++
+            console.log(contador)
+            if (contador > 32) {
+                alert('Completo')
+                //Check if necesary
+                die()
+            }
+
+            //evento de click
+            node.addEventListener('click', () => {
+                code++
+                if (contador % 8 == 0) {
+                    crearSalto()
+                }
+
+                createNode()
+            })
+
+            document.body.append(node)
+        }
+
+        // funcion para crear salto
+
+        function crearSalto() {
+            const salto = document.createElement('div')
+            salto.style.clear = "left"
+            document.body.append(salto)
+        }
+
+        createNode()
+
+
+
+
+    </script>
+</body>
+
+</html>
