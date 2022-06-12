@@ -12,10 +12,10 @@
 // - Calcula el minimo
 // lenguaje:filter,reduce,min,apply,sort
 //Array of random numbers
-const list;
+const list = [];
 //Generate an array with 10 numbers
-for(let i = 0; i < 10; i++){
-    list.push(getRndInteger(0, 100)); //Add random number to the list
+for (let i = 0; i < 10; i++) {
+  list.push(getRndInteger(0, 100)); //Add random number to the list
 }
 //Print the numbers of the array
 let txt = "";
@@ -27,5 +27,5 @@ function myFunction(value, index, array) {
 }
 //Return a random integer
 function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
-  }
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
