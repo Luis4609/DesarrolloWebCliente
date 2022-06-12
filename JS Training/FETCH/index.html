@@ -40,14 +40,6 @@
       document.getElementById("addPost").addEventListener("submit", addPost);
 
       function getText() {
-        // fetch('sample.txt')
-        // .then(function(response){
-        //    return response.text();
-        // })
-        // .then(function(data){
-        //     console.log(data);
-        // })
-
         fetch("sample.txt")
           .then((response) => response.text())
           .then((data) => {
