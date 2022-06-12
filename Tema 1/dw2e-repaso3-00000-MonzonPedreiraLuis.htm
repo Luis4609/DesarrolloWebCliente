@@ -1,50 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>R00</title>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
- 
+
 <body>
 
-<script type="text/javascript">
-    // pedir valores iniciales
-var valorAncho = prompt("Introduce ancho: ", "");
-var valorAlto = prompt("Introduce alto: ", "");
-var valorFondo = prompt("Introduce fondo: ", "");
+    <script type="text/javascript">
+        // pedir valores iniciales
+        var valorAncho = prompt("Introduce ancho: ", "");
+        var valorAlto = prompt("Introduce alto: ", "");
+        var valorFondo = prompt("Introduce fondo: ", "");
 
-// imprimir en la pagina web
-document.write("<b>Datos para calcular: </b><br/>");
-document.write("El ancho es: " + valorAncho + "<br/>");
-document.write("El alto es: " + valorAlto + "<br/>");
-document.write("El fondo es: " + valorFondo + "<br/>");
+        // imprimir en la pagina web
+        document.write("<b>Datos para calcular: </b><br/>");
+        document.write("El ancho es: " + valorAncho + "<br/>");
+        document.write("El alto es: " + valorAlto + "<br/>");
+        document.write("El fondo es: " + valorFondo + "<br/>");
 
-/*
-function superficie(valorAncho, valorAlto){
-    var superficieFinal = valorAncho * valorAlto;
-    var superficiePies = superficieFinal * 3.28;
-    return superficieFinal, superficiePies;
-};
-*/
+        /*
+        function superficie(valorAncho, valorAlto){
+            var superficieFinal = valorAncho * valorAlto;
+            var superficiePies = superficieFinal * 3.28;
+            return superficieFinal, superficiePies;
+        };
+        */
 
-/*
-function volumen(valorAncho, valorAlto, valorFondo){
-    var volumenFinal = valorAncho * valorAlto * valorFondo;
-    var volumenPies = volumenFinal * 3.28;
-    return volumenFinal, volumenPies;
-};
-*/
+        /*
+        function volumen(valorAncho, valorAlto, valorFondo){
+            var volumenFinal = valorAncho * valorAlto * valorFondo;
+            var volumenPies = volumenFinal * 3.28;
+            return volumenFinal, volumenPies;
+        };
+        */
 
-var superficie = valorFondo * valorAncho;
-var superficiePies = superficie * 3.28;
-var volumen = valorAlto * valorAncho * valorFondo;
-var volumenPies = volumen * 3.28;
+        var superficie = valorFondo * valorAncho;
+        var superficiePies = superficie * 3.28;
+        var volumen = valorAlto * valorAncho * valorFondo;
+        var volumenPies = volumen * 3.28;
 
-document.write("<b>Resultado de la superficie: </b><br/>" + superficie  + " (" + superficiePies + " pies)" + "<br/>");	
-document.write("<b>Resultado del volumen: </b><br/>" + volumen + " (" + volumenPies + " pies)" + "<br/>");	
-</script>
+        document.write("<b>Resultado de la superficie: </b><br/>" + superficie + " (" + superficiePies + " pies)" + "<br/>");
+        document.write("<b>Resultado del volumen: </b><br/>" + volumen + " (" + volumenPies + " pies)" + "<br/>");	
+    </script>
 
-<p> Todos los valores estan dados en metros.</p>
+    <p> Todos los valores estan dados en metros.</p>
 </body>
+
 </html>
