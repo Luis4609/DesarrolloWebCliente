@@ -5,10 +5,147 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Examen Mapa-Leafle</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
 </head>
 
-<body>
+<style>
+    .c {
+        margin: 10px;
+        border: 1px solid black;
+        width: 300px;
+        padding: 10px;
+    }
 
+    #mapid {
+        width: 600px;
+        height: 300px;
+    }
+</style>
+
+<br>
+
+<div id="mapid">
+
+</div>
+<label for="zoom">zoom </label>
+<input type="text" name="zoom" id="zoom" class="c"> </br>
+<label for="coordenadas">coordenadas </label>
+<input type="text" name="coordenadas" id="coordenadas" class="c"> </br>
+<label for="circulo1">circulo 1</label>
+<input type="checkbox" name="circulo1" id="circulo1"> </br>
+<label for="circulo2">circulo 2</label>
+<input type="checkbox" name="circulo2" id="circulo2"> </br>
+<label for="cuadrado">cuadrado</label>
+<input type="checkbox" name="cuadrado" id="cuadrado"> </br>
+
+<script>
+    //coordenadas oslo 59.91994660531434, 10.750779336846538
+    var map = L.map('mapid').setView([59.919602450272386, 10.647782514577518], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 10,
+        minZoom: 8,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    //nuevo icon para Marker
+    var greenIcon = L.icon({
+        iconUrl: './enunciado/leaf-green.png',
+        shadowUrl: './enunciado/leaf-shadow.png',
+
+        iconSize: [38, 95], // size of the icon
+        shadowSize: [50, 64], // size of the shadow
+        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62], // the same for the shadow
+        popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    //añadir marcador 59.908071193787016, 10.676449963442394
+    var marker = L.marker([59.908071193787016, 10.676449963442394], { icon: greenIcon }).addTo(map);
+    marker.bindPopup("<b>Hola!</b><br>Mi marcador.").openPopup();
+
+    //añadir circulo 1 60.033457703181845, 10.443765567005059
+    var circle1 = L.circle([59.94932178921594, 10.468484804843985], {
+        color: 'blue',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 10000
+    })
+    circle1.bindPopup("circulo1.").openPopup();
+
+    //centro 2 circulo 59.78075289658607, 10.495950625390655
+    var circle2 = L.circle([59.78075289658607, 10.495950625390655], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 10000
+    })
+    circle2.bindPopup("circulo2").openPopup();
+
+    //cuadrado
+    var cuadrado = L.polygon([
+        [59.94932178921594, 10.468484804843985], //c1
+        [59.99742564701986, 10.988962080043423],
+        [59.799409848110784, 11.113931560696004],
+        [59.78075289658607, 10.495950625390655] //c2
+    ])
+    cuadrado.bindPopup("cuadrado").openPopup();
+
+
+
+    //borrar circulos
+    function borrarElemento(elem) {
+        map.removeLayer(elem)
+    }
+
+    const checkbox1 = document.getElementById('circulo1')
+    const checkbox2 = document.getElementById('circulo2')
+    const checkbox3 = document.getElementById('cuadrado')
+
+    checkbox1.addEventListener('click', () => {
+        if (checkbox1.checked == true) {
+            circle1.addTo(map)
+        } else {
+            borrarCirculos(circle1)
+        }
+    })
+    checkbox2.addEventListener('click', () => {
+        if (checkbox2.checked == true) {
+            circle2.addTo(map)
+        } else {
+            borrarCirculos(circle2)
+        }
+    })
+
+    checkbox3.addEventListener('click', () => {
+        if (checkbox3.checked == true) {
+            cuadrado.addTo(map)
+        } else {
+            borrarElemento(cuadrado)
+        }
+    })
+
+    //zoom
+    const zoom = document.getElementById('zoom')
+
+    map.on('zoomend', function () {
+        zoom.value = `${map.getZoom()}`
+    });
+
+    //presentar coordenadas
+    map.on("click", function (e) {
+        const coordenadas = document.querySelector("#coordenadas");
+        coordenadas.value = e.latlng;
+    });
+
+</script>
 </body>
 
 </html>
