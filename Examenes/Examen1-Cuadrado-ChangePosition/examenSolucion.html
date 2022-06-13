@@ -9,15 +9,12 @@
 
 <body>
     <script>
-
         let id = 8
-
-
-
-        //Crear el cuadrado
+        //Crear el cuadrado inicial
         createContenedor()
 
         function createContenedor() {
+            //Cuadrado 1
             let nextCuadrado = document.createElement('div')
             nextCuadrado.style.width = "50px"
             nextCuadrado.style.height = "50px"
@@ -34,7 +31,6 @@
 
             //listener
             if (id > 1) {
-
                 nextCuadrado.addEventListener('click', function handler() {
 
                     console.log(`Cuadrado con id: ${id}`)
@@ -53,15 +49,11 @@
                     // create new contenedor
                     createContenedor(document.body)
 
-                    nextCuadrado.style.cursor = "default"
-                    nextCuadrado.style.top = "10px"
-                    nextCuadrado.style.left = "10px"
-
+                    // nextCuadrado.style.cursor = "default"
+                    // nextCuadrado.style.top = "10px"
+                    // nextCuadrado.style.left = "10px"
                 })
             }
-
-
-
             //Crear las bolitas ROJAS
             let bolita1 = document.createElement('div')
             bolita1.style.width = "20px"
@@ -99,16 +91,12 @@
             bolita4.style.top = "40px"
             bolita4.style.left = "40px"
 
-            // nextCuadrado.addEventListener('click', listener)
-
-
             //insert a node as the first child
             document.body.prepend(nextCuadrado)
             nextCuadrado.append(bolita1)
             nextCuadrado.append(bolita2)
             nextCuadrado.append(bolita3)
             nextCuadrado.append(bolita4)
-
         }
 
     </script>
