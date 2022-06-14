@@ -1,0 +1,68 @@
+Nombre del fichero: DW2E-EC-expediente-ApellidosNombre.htm
+Tiempo: 180 minutos
+Acceso internet: si
+
+CRITERIOS
+- El nombre del fichero para entregar es el indicado en la primera linea.
+- Puntua cada apartado completado.
+- Entregas con el nombre mal o fuera de tiempo son un cero.
+- Se puede entregar multiples veces, se evalua la última dentro del tiempo.
+- Entregas que no cumplan las premisas son un cero.
+
+PREMISAS
+- No se puede usar HTML. El body estará vacio.
+
+PRESENTAR (2 puntos)
+01- contenedor primero de la lista y sus estilos
+02- elementos de la lista del contenedor primero y sus colores
+03- alineación de los elementos de la lista en su contenedor
+04- todos los textos de la página están centrados
+05- los seis comandos tienen mismo ancho
+06- hover solo en comandos
+
+AVISOS (2 puntos)
+Presentar los avisos según la ejecución del programa para cada comando:
+01- comando 1,2,3 presentan aviso "todos han sido borrados"
+02- comando 4 presenta aviso "están todos"
+05- comando 5 presenta estas visualizando X
+
+EJECUCION (6 puntos)
+Según el comando programar según el video de captura:
+01- comando 1 : borrar el primero de la lista
+02- comando 2 : borrar el último de la lista
+03- comando 3 : borrar todos
+04- comando 4 : inserta ausentes desde inicio
+05- comando 6 : pon color
+
+
+CRITERIOS EVALUACIóN
+====================
+
+1) La libertad de cátedra ampara el desarrollo de la metodologia y la forma de examinar del profesor.
+
+2) Se evalua la capacidad terminal del alumno de desarrollar interfaces adquirida trabajando durante el curso en los ejercicios.
+
+3) El alumno debe desarrollar un programa usando las referencias y documentación real de desarrollo.
+
+4) Se evalua en cada apartado si el programa afectua lo solicitado o no.
+
+5) No se analiza el código fuente ya que es imposible aplicar a un criterio objetivo y no forma parte de la capacidad de desarrollo de funcionalidad.
+
+6) La programación didáctica incluye HTML, Javascript.
+
+7) Los examenes son pruebas de evaluación, no repeticiones de ejercicios y no se suministran las soluciones.
+
+8) Los contenidos básicos contenidos en la programación didactica actual utilizados son:
+
+Utilización del modelo de objetos del documento (DOM-Document Object Model):
+    • El modelo de objetos del documento (DOM).
+    • Objetos del modelo. Propiedades y métodos de los objetos.
+    • Acceso al documento desde código.
+    • Programación de eventos.
+Interacción con el usuario. Eventos y formularios:
+    • Modelo de gestión de eventos.
+    • Utilización de formularios desde código.
+    • Modificación de apariencia y comportamiento.
+Programación con arrays, funciones y objetos definidos por el usuario:
+    • Llamadas a funciones. Definición de funciones.
+    • Creación de objetos.    

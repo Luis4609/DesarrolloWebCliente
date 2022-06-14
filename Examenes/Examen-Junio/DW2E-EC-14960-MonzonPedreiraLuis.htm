@@ -1,0 +1,192 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen</title>
+</head>
+
+<body>
+    <script>
+
+        const contenedor = document.createElement('div')
+        contenedor.id = "container"
+        contenedor.style.width = "99%"
+        contenedor.style.height = "40px"
+        contenedor.style.display = "flex"
+        contenedor.style.alignItems = "center"
+        // contenedor.style.justifyContent = "space-around"
+        contenedor.style.justifyContent = "flex-start"
+        // contenedor.style.gap = "30px"
+        contenedor.style.backgroundColor = "rgb(122, 121, 121)"
+        //Crear palabras dentro de contenedor
+
+        document.body.append(contenedor)
+
+        // Palabras en contenedor1
+        crearPalabrasContenedor("INICIO")
+        crearPalabrasContenedor("Que")
+        crearPalabrasContenedor("tal")
+        crearPalabrasContenedor("tu")
+        crearPalabrasContenedor("viaje")
+        crearPalabrasContenedor("a")
+        crearPalabrasContenedor("Corea")
+        crearPalabrasContenedor("FIN")
+
+
+        //FUNCION PARA CREAR CONTENEDORES
+        function crearPalabrasContenedor(texto) {
+            const palabra = document.createElement('div')
+            palabra.style.width = "70px"
+            palabra.style.height = "30px"
+            palabra.style.border = "1px solid white"
+            palabra.style.borderRadius = "10px"
+            palabra.style.color = "white"
+            palabra.style.marginLeft = "15px"
+            palabra.style.backgroundColor = "rgb(161, 159, 153)"
+            palabra.style.display = "flex"
+            palabra.style.alignItems = "center"
+            palabra.style.justifyContent = "center"
+            palabra.innerHTML = texto;
+
+            contenedor.append(palabra)
+        }
+
+        //Generar comandos
+        function crearComando(texto, parent) {
+            const comando = document.createElement('div')
+            comando.style.width = "360px"
+            comando.style.height = "30px"
+            comando.style.border = "1px solid grey"
+            comando.style.borderRadius = "5px"
+            comando.style.backgroundColor = "rgb(207, 203, 194, 0.5)"
+            comando.style.display = "flex"
+            comando.style.alignItems = "center"
+            comando.style.justifyContent = "center"
+            comando.style.marginTop = "10px"
+            comando.innerHTML = texto;
+
+            //hover
+            comando.addEventListener('mouseover', () => {
+                comando.style.backgroundColor = "rgb(82, 87, 84, 0.4)"
+            })
+
+            comando.addEventListener('mouseout', () => {
+                comando.style.backgroundColor = "rgb(207, 203, 194, 0.5)"
+            })
+
+            //EVENTOS DE CLICK
+
+            //BORRAR PRIMERO DE LA LISTA
+            if (texto === "borrar el primero de la lista") {
+                comando.addEventListener('click', () => {
+                    if (contenedor.hasChildNodes() && contenedor.children.length > 2) {
+                        contenedor.removeChild(contenedor.children[1])
+                    } else {
+                        contenedorAvisos.innerHTML = "todos han sido borrados"
+                    }
+                })
+            }
+
+            //BORRAR ULTIMO DE LA LISTA
+            if (texto === "borrar el ultimo de la lista") {
+                comando.addEventListener('click', () => {
+                    if (contenedor.hasChildNodes() && contenedor.children.length > 2) {
+                        contenedor.removeChild(contenedor.children[contenedor.children.length - 2])
+                    } else {
+                        contenedorAvisos.innerHTML = "todos han sido borrados"
+                    }
+                })
+            }
+
+            //BORRAR TODOS LOS ELEMENTOS
+            if (texto === "borrar todos") {
+                comando.addEventListener('click', () => {
+
+                    while (contenedor.hasChildNodes && contenedor.children.length > 2) {
+                        contenedor.removeChild(contenedor.children[contenedor.children.length - 2])
+                    }
+                    contenedorAvisos.innerHTML = "todos han sido borrados"
+
+                })
+            }
+
+            //ARRAY CON LOS CHILDREN
+            let arrayChildren = []
+
+            contenedor.childNodes.forEach(e => {
+                arrayChildren.push(e)
+            })
+
+            //INSERT AUSENTES DESDE INICIO
+            if (texto === "inserta ausentes desde el inicio") {
+                comando.addEventListener('click', () => {
+
+                    if (contenedor.childNodes.length == 8) {
+                        contenedorAvisos.innerHTML = "están todos"
+                    } else {
+                        let i = contenedor.children.length
+                        contenedor.insertBefore(arrayChildren[i - 1], contenedor.children[contenedor.children.length - 1])
+                        contenedorAvisos.innerHTML = ""
+                    }
+
+                })
+            }
+
+            //CANTIDAD DE CHILDREN
+            if (texto === "cuantos hay ahora ?") {
+                comando.addEventListener('click', () => {
+                    let countActualChildren = 0
+                    contenedor.childNodes.forEach(elem => {
+                        countActualChildren++
+                    })
+                    contenedorAvisos.innerHTML = "estas visualizando " + (countActualChildren - 2)
+                })
+            }
+
+            //COLOR
+            if (texto === "pon color") {
+                comando.addEventListener('click', () => {
+                    if (contenedor.hasChildNodes) {
+                        for (let i = 1; i < contenedor.children.length - 1; i++) {
+                            contenedor.children[i].style.backgroundColor = "red"
+                        }
+                    }
+                })
+            }
+
+            document.body.append(comando)
+        }
+
+        //CREAR COMANDOS
+        crearComando("borrar el primero de la lista")
+        crearComando("borrar el ultimo de la lista")
+        crearComando("borrar todos")
+        crearComando("inserta ausentes desde el inicio")
+        crearComando("cuantos hay ahora ?")
+        crearComando("pon color")
+
+
+        //Crear contenedor de avisos
+        const contenedorAvisos = document.createElement('div')
+        contenedorAvisos.style.width = "99%"
+        contenedorAvisos.style.height = "40px"
+        contenedorAvisos.style.border = "1px solid grey"
+        contenedorAvisos.style.color = "white"
+        contenedorAvisos.style.display = "flex"
+        contenedorAvisos.style.alignItems = "center"
+        contenedorAvisos.style.justifyContent = "flex-start"
+        contenedorAvisos.style.gap = "10px"
+        contenedorAvisos.style.marginTop = "10px"
+        contenedorAvisos.style.backgroundColor = "rgb(122, 121, 121)"
+
+        //Crear palabras dentro de contenedorAvisos
+        contenedorAvisos.innerHTML = "\u00A0 \u00A0 avisos"
+
+        document.body.append(contenedorAvisos)
+
+    </script>
+</body>
+
+</html>
