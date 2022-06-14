@@ -36,13 +36,6 @@
 
         document.write(`${nombreUsuario} <br> <br>`)
         document.write(`Dia: ${weekDays} <br>`)
-        //   document.write(`Ingresos: ${weekDays[0]}: ${incomeArray[0]}-${outcomeArray[0]} = ${benefits[0]}`)
-        //   benefits.map(benefit => console.log(`%cLog benefits: ${benefit}`, 'color: cyan;'))
-
-        //   benefits.map(benefit => document.write(`Ingresos: ${weekDays}: ${incomeArray}-${outcomeArray} = ${benefits}`))
-        //   benefits.forEach((benefit) => {
-        //     document.write(`Ingresos: ${weekDays}: ${incomeArray}-${outcomeArray} = ${benefit} <br>`)
-        //   })
 
         for (let i = 0; i < benefits.length; i++) {
             document.write(`${weekDays[i]}: ${incomeArray[i]}-${outcomeArray[i]} = ${benefits[i]}#`)
@@ -71,8 +64,6 @@
         for (let i = 0; i < randomIncome.length; i++) {
             randomBenefits[i] = randomIncome[i] - randomOutcome[i]
         }
-
-        console.log(`Income: ${randomIncome}, Outcome: ${randomOutcome}`)
 
         function random() {
             for (let i = 0; i < randomBenefits.length; i++) {

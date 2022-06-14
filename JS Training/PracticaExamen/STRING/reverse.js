@@ -3,3 +3,4 @@ function reverseString(str){
 }
 
 console.log(reverseString('OLaH'))
+console.log(reverseString('Estoy al reves, por favor leer con cuidado'))
