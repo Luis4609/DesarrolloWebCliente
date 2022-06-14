@@ -11,12 +11,6 @@ function drop(ev) {
 
   var data = ev.dataTransfer.getData("id");
   ev.target.appendChild(document.getElementById(data));
-
-  // try {
-  //     document.getElementById(ev.target.parentNode.id).removeChild(document.getElementById(data));
-  // } catch (e) {
-  //     console.log("This is not a child of this parent.");
-  // }
 }
 
 
